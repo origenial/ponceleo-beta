@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@tailwindcss/ui": "^0.6.2",
+    "autoprefixer": "^10.0.1",
+    "clean-css": "^4.2.3",
+    "postcss": "^8.1.2",
+    "postcss-cli": "^8.1.0",
+    "postcss-import": "^13.0.0",
+    "tailwindcss": "^1.9.2",
+    "postcss-nested": "latest"
+  },
+  "scripts": {
+    "dev-css" : "./bin/dev.sh only-css"
+  }
+}
