@@ -16,8 +16,7 @@
    [:meta {:charset "utf-8"}]
    [:meta {:name "viewport"
            :content "width=device-width, initial-scale=1"}]
-   (include-css (if (env :dev) "/out/app.dev.css" "/out/app.css"))])
-
+   (include-css "/out/tailwind.css" "/out/app.css")])
 (defn loading-page []
   (html5
    (head)

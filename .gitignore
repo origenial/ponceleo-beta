@@ -18,3 +18,4 @@ pom.xml.asc
 .rebel_readline_history
 /.sass-cache
 /node_modules
+/resources/public/out

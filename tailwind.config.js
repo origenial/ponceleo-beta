@@ -1,7 +1,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  purge: ['src/**/*.cljs'],
+  purge: ['src/**/*.clj{s,c}'],
   theme: {
     height:{
       '3/4': "75vh"
