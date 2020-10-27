@@ -2,7 +2,7 @@
   (:require [clojure.string :refer [join]])
   (:require-macros [ponceleo.utils.core]))
 
-(defn join-keyword [& items ]
+(defn join-keyword [& items]
   (->> items
       (map name)
       (join "-")

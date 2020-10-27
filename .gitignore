@@ -4,6 +4,7 @@
 profiles.clj
 pom.xml
 pom.xml.asc
+.cpcache/
 *.jar
 *.class
 /.lein-*
@@ -14,5 +15,6 @@ pom.xml.asc
 /.env
 /.idea
 *.iml
+.rebel_readline_history
 /.sass-cache
 /node_modules
