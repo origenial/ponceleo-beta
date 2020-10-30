@@ -36,7 +36,7 @@
    [:cljsbuild :builds :app :compiler :output-dir]
    [:cljsbuild :builds :app :compiler :output-to]]
 
-  :source-paths ["src/clj" "src/cljc" "src/cljs" "env/dev/cljs"]
+  :source-paths ["src/clj" "src/cljc" "src/cljs"]
   :resource-paths ["resources" "target/cljsbuild"]
 
   :minify-assets
@@ -56,7 +56,7 @@
             :app
             {:source-paths ["src/cljs" "src/cljc" "env/dev/cljs"]
              :figwheel {:on-jsload "ponceleo.core/mount-root"
-                        :websocket-url "ws://192.168.43.57:3449/figwheel-ws"}
+                        :websocket-url "ws://localhost:3449/figwheel-ws"}
              :compiler
              {:main "ponceleo.dev"
               :asset-path "/js/out"

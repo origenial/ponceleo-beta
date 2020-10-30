@@ -1,4 +1,4 @@
-(ns ^{:figwheel-no-load true, :figwheel-hooks true} ponceleo.dev
+(ns ^:figwheel-no-load ponceleo.dev
   (:require
     [ponceleo.core :as core]
     [devtools.core :as devtools]))
@@ -13,6 +13,3 @@
 (enable-console-print!)
 
 (core/init!)
-
-(defn ^:after-load re-render []
-      (core/mount-root))

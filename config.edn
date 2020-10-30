@@ -1,3 +1,14 @@
 {
-  :port 3449
+ ;; Default environment variables
+
+ ;; Used by the `yogthos/config lib
+ ;; (config.core/env :keyword) gets an env variable
+ ;; (config.core/reload-env) reload env variables for current REPL
+
+ ;; Overridable by :
+ ;;   - env/dev/dev.config.edn (see :env/dev alias in deps.edn)
+ ;;   - env/prod/prod.config.edn (see :env/prod alias in deps.edn)
+ ;;   - .env.config.edn (see :env/local alias in deps.edn)
+
+
 }

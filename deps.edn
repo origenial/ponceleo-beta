@@ -23,20 +23,22 @@
  :aliases {
            :env/dev  {:jvm-opts    ["-Dconfig=env/dev/dev.config.edn"]
                       :extra-paths ["env/dev/clj" "env/dev/cljs"]
-                      :extra-deps  {binaryage/devtools {:mvn/version "1.0.2"}
-                                    ring/ring-mock     {:mvn/version "0.4.0"}
+                      :extra-deps  {                                    ring/ring-mock     {:mvn/version "0.4.0"}
                                     ring/ring-devel    {:mvn/version "1.8.1"}
                                     prone              {:mvn/version "2020-01-17"}
                                     figwheel-sidecar   {:mvn/version "0.5.20"}}}
 
-           :env/prod {:jvm-opts ["-Dconfig=env/prod/prod.config.edn"]}
-           ;:nrepl {   :extra-deps { cider/piggieback {:mvn/version "0.5.1"}
-           ;                         nrepl {:mvn/version "0.8.0"}}
-           ;           :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.piggieback/wrap-cljs-repl]"]}
-           :fig/dev  {:main-opts ["-m" "figwheel.main" "-b" "dev" "-r"]}
+           :env/prod {:jvm-opts ["-Dconfig=env/prod/prod.config.edn"]
+                      :extra-paths ["env/prod/clj" "env/prod/cljs"]
+                      }
+           :env/local {:jvm-opts ["-Dconfig=.env.config.edn"]}
+
+           :fig/dev  {:main-opts ["-m" "figwheel.main"
+                                  "-b" "env/dev/dev:.env"
+                                  "-r" ]}
            :repl/dev {:main-opts ["-i" "env/dev/clj/ponceleo/repl.clj"
-                                  "-e" "(require 'ponceleo.repl)"
-                                  "-e" "(ponceleo.repl/start-server)"
+                                  "-e" (require 'ponceleo.repl)
+                                  "-e" (ponceleo.repl/start-server)
                                   "-r"]}}}
 
 

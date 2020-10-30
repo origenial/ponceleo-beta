@@ -1,4 +1,4 @@
-(ns ponceleo.core
+(ns ^:figwheel-hooks ponceleo.core
   (:require
     [ponceleo.utils.lorem-ipsum :refer [random-sentence]]
     [reagent.core :as reagent :refer [atom]]
@@ -69,4 +69,7 @@
     (fn [path]
       (boolean (reitit/match-by-path router path)))})
   (accountant/dispatch-current!)
+  (mount-root))
+
+(defn ^:after-load re-render []
   (mount-root))

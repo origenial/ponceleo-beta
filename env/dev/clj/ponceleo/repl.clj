@@ -26,9 +26,15 @@
             (serve (get-handler)
                    {:port port
                     :auto-reload? true
-                    :join? false}))
+                    :auto-refresh? false
+                    :join? false
+                    :open-browser? false}))
     (println (str "You can view the site at http://localhost:" port))))
 
 (defn stop-server []
   (.stop @server)
   (reset! server nil))
+
+(defn restart-server [& ports]
+  (stop-server)
+  (start-server ports))

@@ -51,7 +51,7 @@
                            :key                 "stat-subscribers",
                            :image-src           "img/enveloppe-icon.svg",
                            :image-alt           "Enveloppe icon",
-                           :stat-number         50
+                           :stat-number         10
                            :stat-description   "Abonnés à la newsletter"
                            }
                           {

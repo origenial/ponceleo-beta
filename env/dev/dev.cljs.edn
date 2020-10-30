@@ -1,0 +1,24 @@
+^{
+  :css-dirs ["resources/public/css" "resources/public/out"]
+  :watch-dirs ["src/cljs" "env/dev/cljs"]
+  :broadcast true
+}
+{
+  ;; Development figwheel-main's options
+  ;; This file's metadata are merged into : figwheel-main.edn data
+
+  ;; Used by the `figwheel-main lib
+  ;; (figwheel.main/reset) , executed on a running Figwheel REPL instance,
+  ;;                         will stop, clean, reload config, and start autobuilder
+
+  ;; This file's data represents : CLJS compiler's configuration
+  ;; This file's meta-data represents : Figwheel's run options
+
+ :main          ponceleo.dev
+ :asset-path    "/js/out"
+ :output-to     "target/public/js/app.js"
+ :output-dir    "target/public/js/out"
+ :source-map    true
+ :optimizations :none
+ :pretty-print  true}
+

@@ -1,2 +1,9 @@
 {
- :production true}
+ ;; Public prod environment variables
+ ;; Overrides config.edn
+ ;; Used by the `yogthos/config lib
+ ;; (config.core/env :keyword) gets an env variable
+ ;; (config.core/reload-env) reload env variables for current REPL
+
+ :production true
+}

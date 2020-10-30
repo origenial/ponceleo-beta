@@ -19,3 +19,5 @@ pom.xml.asc
 /.sass-cache
 /node_modules
 /resources/public/out
+/.env.config.edn
+/.env.cljs.edn

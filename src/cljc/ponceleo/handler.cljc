@@ -8,7 +8,9 @@
 (def mount-target
   [:div#app
    [:h2 "Welcome to ponceleo"]
-   [:p "please wait while Figwheel is waking up ..."]
+   [:p "The page is loading ..."]
+   (if (env :dev) [:p "This a dev environment"])
+   [:p "Please wait while Figwheel is waking up ... It might take a bit of time"]
    [:p "(Check the js console for hints if nothing exciting happens.)"]])
 
 (defn head []
