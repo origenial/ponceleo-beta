@@ -16,7 +16,7 @@
  :asset-path "/js/out"
  :output-to "target/public/js/app.js"
  :output-dir "target/public/js/out"
- :source-map       "target/public/js/app.js.map"
+ :source-map "target/public/js/app.js.map"
  :optimizations :advanced
  :infer-externs true
  :pretty-print  false

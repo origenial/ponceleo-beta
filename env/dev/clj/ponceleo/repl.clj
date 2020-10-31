@@ -14,7 +14,7 @@
   ;; changes, the server picks it up without having to restart.
   (-> #'app
       ; Makes static assets in $PROJECT_DIR/resources/public/ available.
-      (wrap-file "resources")
+      (wrap-file "target")
       ; Content-Type, Content-Length, and Last Modified headers for files in body
       (wrap-file-info)))
 

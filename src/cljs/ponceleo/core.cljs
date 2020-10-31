@@ -1,4 +1,4 @@
-(ns ^:figwheel-hooks ponceleo.core
+(ns ponceleo.core
   (:require
     [ponceleo.utils.lorem-ipsum :refer [random-sentence]]
     [reagent.core :as reagent :refer [atom]]
@@ -71,5 +71,3 @@
   (accountant/dispatch-current!)
   (mount-root))
 
-(defn ^:after-load re-render []
-  (mount-root))

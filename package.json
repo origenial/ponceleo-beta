@@ -11,7 +11,8 @@
     "tailwindcss": "^1.9.2"
   },
   "scripts": {
-    "dev-rebuild-css": "./bin/dev/rebuild-css.sh",
-    "dev-watch-style": "./bin/dev/watch-style.sh"
+    "dev-build-img": "./bin/dev/build-img.sh",
+    "dev-build-css": "./bin/dev/build-css.sh",
+    "dev-watch-css": "./bin/dev/watch-css.sh"
   }
 }

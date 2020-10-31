@@ -21,3 +21,4 @@ pom.xml.asc
 /resources/public/out
 /.env.config.edn
 /.env.cljs.edn
+/.shadow-cljs/
