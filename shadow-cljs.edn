@@ -15,7 +15,7 @@
                                         :after-load   ponceleo.core/mount-root
                                         :http-root    "target/public"
                                         :http-port    3449}
-                          :build-hooks [(ponceleo.user/create-index-html "target" "public")]
+                          :build-hooks [(ponceleo.hooks/create-index-html "target" "public")]
                           :modules     {:app {:entries [ponceleo.dev]}}}
                    :prod {:target      :browser
                           :asset-path "/js/out"

@@ -15,11 +15,10 @@
 ;; -------------------------
 ;; Page mounting component
 
-(defn current-page []
+(defn current-page-component []
   (fn []
-    (let [page (:current-page (session/get :route))]
-      [:div {:class ["overflow-x-hidden"]}
-       [page]])))
+    (let [page-component (:current-page (session/get :route))]
+      [:div.overflow-x-hidden [page-component]])))
 
 ;; -------------------------
 ;; Translate routes -> page components
@@ -36,7 +35,7 @@
 ;; Initialize app
 
 (defn mount-root []
-  (rdom/render [current-page] (.getElementById js/document "app")))
+  (rdom/render [current-page-component] (.getElementById js/document "app")))
 
 (defn init! []
   (clerk/initialize!)

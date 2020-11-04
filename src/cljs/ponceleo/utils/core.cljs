@@ -1,6 +1,5 @@
 (ns ponceleo.utils.core
-  (:require [clojure.string :refer [join]])
-  (:require-macros [ponceleo.utils.core]))
+  (:require [clojure.string :refer [join]]))
 
 (defn join-keyword [& items]
   (->> items
