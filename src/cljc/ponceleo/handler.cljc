@@ -10,7 +10,7 @@
    [:h2 "Welcome to ponceleo"]
    [:p "The page is loading ..."]
    (if (env :dev) [:p "This a dev environment"])
-   [:p "Please wait while Figwheel is waking up ... It might take a bit of time"]
+   [:p "Please wait while Shadow-cljs is waking up ... It might take a bit of time"]
    [:p "(Check the js console for hints if nothing exciting happens.)"]])
 
 (defn head []
@@ -19,12 +19,13 @@
    [:meta {:name "viewport"
            :content "width=device-width, initial-scale=1"}]
    (include-css "/css/tailwind.css" "/css/app.css")])
+
 (defn loading-page []
   (html5
    (head)
    [:body {:class "body-container"}
     mount-target
-    (include-js "/js/app.js")]))
+    (include-js "/js/out/app.js")]))
 
 
 (defn index-handler

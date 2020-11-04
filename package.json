@@ -2,10 +2,9 @@
   "devDependencies": {
     "@tailwindcss/ui": "^0.6.2",
     "autoprefixer": "^10.0.1",
-    "clean-css": "^4.2.3",
     "cssnano": "^4.1.10",
-    "postcss": "^8.1.2",
-    "postcss-cli": "^8.1.0",
+    "postcss": "^8.1.4",
+    "postcss-cli": "^8.2.0",
     "postcss-import": "^13.0.0",
     "postcss-nested": "latest",
     "tailwindcss": "^1.9.2"
@@ -14,5 +13,9 @@
     "dev-build-img": "./bin/dev/build-img.sh",
     "dev-build-css": "./bin/dev/build-css.sh",
     "dev-watch-css": "./bin/dev/watch-css.sh"
+  },
+  "dependencies": {
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
   }
 }

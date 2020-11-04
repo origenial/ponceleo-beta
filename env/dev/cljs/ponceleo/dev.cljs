@@ -1,4 +1,4 @@
-(ns ^:figwheel-no-load ponceleo.dev
+(ns ^:dev/once ponceleo.dev
   (:require
     [ponceleo.core :as core]
     [devtools.core :as devtools]))
