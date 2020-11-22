@@ -1,0 +1,61 @@
+{
+ :deps ;; Tells Shadow-cljs to use /deps.edn file's dependencies and sources
+ {:aliases [:env/local]}
+
+ :nrepl
+ {:port 9000, :middleware []}
+
+ :build-defaults
+ {}
+
+ :target-defaults
+ {:browser {}}
+
+ :builds
+ {
+  ;;;;;;;;;;;;;;;;;
+  ;;DEV BUILD
+  ;;Useful to work with the REPL and Hot reloading within shadow-cls
+  ;;Uses the /env/dev/* files for developement features
+  ;; and precisely ponceleo.spa.* features
+  ;;;;;;;;;;;;;;;;;
+  :app
+  {:target :browser
+   :asset-path "/js/out"
+   :output-dir "target/public/js/out"
+   :js-options {:resolve
+                {"next/image"
+                 {:target :file
+                  :file "src/dev/ponceleo/frontend/polyfills/next-image.js"}}}
+   :devtools {:repl-pprint true
+              :http-root "target/public"
+              :http-port 3449}
+   :build-hooks [(ponceleo.frontend.hooks/create-index-html! "target" "public")
+                 (ponceleo.frontend.hooks/copy-dir!
+                   ["src" "resources" "img"]
+                   ["target" "public"])]
+   :modules {:app {:entries [ponceleo.frontend.spa.start]}}}
+
+  ;;;;;;;;;;;;;;;;;
+  ;;NEXT BUILD
+  ;;Aims at pre-compiling the application in /pages/**/*.js files
+  ;;This enables the application to be then compiled with Next.js to get
+  ;;Production ready
+  ;;Uses the /env/dev/* files and precisely ponceleo.next.* features
+  ;;;;;;;;;;;;;;;;;
+  :next
+  {:target :npm-module
+   :output-dir "target/next/cljs/"
+   :build-hooks [(ponceleo.frontend.hooks/create-next-page!
+                   {:page-dir ["pages"]
+                    :cljs-dir ["target" "next" "cljs"]
+                    :css-dir ["src" "resources" "style"]})
+                 (ponceleo.frontend.hooks/copy-dir!
+                   ["src" "resources" "img"]
+                   ["public"])]
+   :entries [ponceleo.frontend.next.pages.app
+             ponceleo.frontend.next.pages.document
+             ponceleo.frontend.next.pages.error
+             ponceleo.frontend.core]
+   :dev {:compiler-options {:optimizations :none}}
+   :release {:compiler-options {:optimizations :simple}}}}}

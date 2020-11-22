@@ -1,0 +1,28 @@
+{
+  "name": "ponceleo",
+  "resolutions": {
+    "webpack": "^5.6.0"
+  },
+  "dependencies": {
+    "next": "^10.0.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/ui": "^0.7.2",
+    "autoprefixer": "^10.0.2",
+    "cssnano": "^4.1.10",
+    "path": "^0.12.7",
+    "postcss": "^8.1.7",
+    "postcss-cli": "^8.2.0",
+    "postcss-import": "^13.0.0",
+    "postcss-loader": "^4.0.4",
+    "postcss-nested": "^5.0.1",
+    "tailwindcss": "^1.9.6"
+  },
+  "scripts": {
+    "dev-build-css": "./bin/dev/build-css.sh",
+    "dev-watch-css": "./bin/dev/watch-css.sh",
+    "preinstall": "npx npm-force-resolutions"
+  }
+}

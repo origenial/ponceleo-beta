@@ -1,0 +1,13 @@
+/**
+  Main css file for the SPA.
+  This file aims at defining cross-page styles
+ */
+@import "form.css";
+
+body {
+  font-family: 'Helvetica Neue', Verdana, Helvetica, Arial, sans-serif;
+}
+
+textarea {
+  min-height: 128px;
+}

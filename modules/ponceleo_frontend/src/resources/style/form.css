@@ -1,0 +1,118 @@
+/**
+  This cross project-css file aims at defining custom CSS for forms.
+  It is reproducing a light Material-like form experience.
+
+ */
+
+/* form starting stylings ------------------------------- */
+form{
+  --form-neutral-color: #5264AE;
+  --form-valid-color: #13ae1e;
+  --form-invalid-color: #e5222a;
+}
+.form-group{
+  position:relative;
+  margin-bottom:20px;
+}
+input, textarea {
+  font-size:14px;
+  padding: 4px 6px;
+  display:block;
+  border:none;
+  border-bottom:1px solid #757575;
+
+  &:focus { outline:none; } /* Default outline of some browsers */
+  &:invalid { box-shadow:none; } /* Default shadow of some browsers */
+  &.valid:not(:focus) {
+    border-bottom:1px solid var(--form-valid-color);
+  }
+  &.invalid:not(:focus) {
+    border-bottom:1px solid var(--form-invalid-color);
+  }
+}
+
+/* LABEL ======================================= */
+label 				 {
+  color:#999;
+  font-size:14px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:6px;
+  top:6px;
+  transition:0.2s ease all;
+
+  /* active state */
+  input:focus ~ &, input.valid ~ &, input.invalid ~ &,
+  textarea:focus ~ &, textarea.valid ~ &, textarea.invalid ~ & {
+    top:-15px;
+    font-size:12px;
+  }
+  input.valid:not(:focus) ~ &,
+  textarea.valid:not(:focus) ~ &{
+    color : var(--form-valid-color);
+    &::before{
+      content:'✔ '
+    }
+  }
+
+  input.invalid:not(:focus) ~ &,
+  textarea.invalid:not(:focus) ~ &{
+    color : var(--form-invalid-color);
+    &::before{
+      content:'✘ '
+    },
+  & > .hint{
+    font-weight: bolder;
+  }
+  }
+  input:focus ~ &,
+  textarea:focus ~ &{
+    color : var(--form-neutral-color);
+  }
+
+  & > .hint::before{
+    content: ' ('
+  }
+  & > .hint::after{
+    content: ')'
+  }
+  input:not(.invalid) ~ & > .hint,
+  textarea:not(.invalid) ~ & > .hint{
+    display:none;
+  }
+}
+
+/* BOTTOM BARS ================================= */
+.bar 	{
+  position:relative;
+  display:block;
+  &:before, &:after{
+    content:'';
+    height:2px;
+    width:0;
+    bottom:1px;
+    position:absolute;
+    background: var(--form-neutral-color);
+    transition:0.2s ease all;
+  }
+  &:before{
+    left:50%;
+  }
+  &:after{
+    right:50%;
+  }
+  input.valid:not(:focus)  ~ &:before, input.valid:not(:focus) ~ &:after,
+  textarea.valid:not(:focus)  ~ &:before, textarea.valid:not(:focus) ~ &:after{
+    background: var(--form-valid-color);
+  }
+  input.invalid:not(:focus)  ~ &:before, input.invalid:not(:focus) ~ &:after,
+  textarea.invalid:not(:focus)  ~ &:before, textarea.invalid:not(:focus) ~ &:after{
+    background: var(--form-invalid-color);
+  }
+  input:focus ~ &:before, input:focus ~ &:after,
+  textarea:focus ~ &:before, textarea:focus ~ &:after{
+    width:50%;
+    background: var(--form-neutral-color);
+  }
+}

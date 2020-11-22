@@ -1,0 +1,26 @@
+(ns ponceleo.frontend.core
+  "Core utilies orchestrating which page/component should be associated to a
+  reitit's router routes.
+  This namespace also aims at providing state management mechanisms"
+  (:require
+    [ponceleo.frontend.pages.about.index :refer [about-page]]
+    [ponceleo.frontend.pages.error :refer [error-404]]
+    [ponceleo.frontend.pages.home.index :refer [home-page]]
+    [reagent.core :refer [as-element]]))
+
+(defn page-for
+  "Translate routes into page components"
+  [page-name]
+  (let [route (if(string? page-name) (keyword page-name) page-name)]
+    (case route
+      :index #'home-page
+      :about #'about-page
+      :error-404 #'error-404
+      #'error-404)))
+
+
+(defn page-container
+  "Translate a page name (stringified keyword) into the page's react component"
+  [page-name]
+  (let [page-component (page-for page-name)]
+    (as-element [:div.overflow-x-hidden [page-component]])))

@@ -1,0 +1,17 @@
+/**
+  Tailwind's base configuration file
+
+ TODO : Separate in sereval files to make critical CSS load faster **/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  a {
+    @apply text-blue-500;
+    &:hover{
+      @apply underline;
+    }
+  }
+
+}
