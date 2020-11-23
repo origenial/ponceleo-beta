@@ -6,5 +6,4 @@
  ;; (config.core/reload-env) reload env variables for current REPL
 
  :dev true
- :port 3449
 }
