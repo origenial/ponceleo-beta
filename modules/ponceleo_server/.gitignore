@@ -1,0 +1,16 @@
+pom.xml
+pom.xml.asc
+/.idea
+*.iml
+.cpcache/
+*.jar
+*.class
+/.clj-kondo/.cache
+/.nrepl-port
+/.repl
+*.log
+/env/*local*
+/node_modules
+/public/
+/out
+
