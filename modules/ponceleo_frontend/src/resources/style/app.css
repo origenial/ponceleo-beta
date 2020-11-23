@@ -11,3 +11,18 @@ body {
 textarea {
   min-height: 128px;
 }
+
+.bg-blurred-2{
+filter: blur(2px);
+}
+.bg-blurred-4{
+filter: blur(4px);
+}
+.bg-blurred-6{
+filter: blur(6px);
+}
+.bg-blurred-8{
+filter: blur(8px);
+}
+
+

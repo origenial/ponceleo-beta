@@ -8,11 +8,15 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans]
-      },
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        cursive : ['"Brush Script MT"', '"Brush Script Std"',
+                   '"Lucida Calligraphy"', '"Lucida Handwriting"',
+                   '"Apple Chancery"', 'cursive'],
+        fantasy : ['Papyrus', 'Herculanum', '"Party LET"', '"Curlz MT"',
+                   'Harrington', 'fantazy']},
       backgroundImage: theme => ({
-        'header-image': "url('/img/header-bg.jpg')",
-        'stats-image': "url('/img/stats-bg.jpg')",
+        'header-image': "url('/img/header-bg.webp')",
+        'stats-image': "url('/img/stats-bg.webp')",
       })
     }
   },
