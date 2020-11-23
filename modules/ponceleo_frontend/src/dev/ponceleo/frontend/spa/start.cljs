@@ -7,7 +7,7 @@
   devtools are added)."
   (:require
    [devtools.core :as devtools]
-   [ponceleo.frontend.init :as pinit]))
+   [ponceleo.frontend.spa.init :as pinit]))
 
 (when js/goog.DEBUG
   (extend-protocol IPrintWithWriter

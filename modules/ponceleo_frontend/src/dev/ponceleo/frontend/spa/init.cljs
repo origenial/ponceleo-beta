@@ -1,4 +1,4 @@
-(ns ponceleo.frontend.init
+(ns ponceleo.frontend.spa.init
   "This namespace provides utility functions to bootload the SPA application"
   (:require
    [accountant.core :as accountant]
