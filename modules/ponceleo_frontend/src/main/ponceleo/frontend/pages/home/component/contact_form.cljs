@@ -28,7 +28,8 @@
    })
 
 (defonce
-  ^{:doc "State of the form, defined once to persist through re-renderings"
+  ^{:doc "State of the contact form, defined once to persist through
+  re-renderings"
     :private true}
   form-state
   (reagent/atom {:full-name nil
@@ -45,14 +46,16 @@
           message    (:message @form-state)
           valid-form (spec/valid? ::contact-form @form-state)
           ]
-      [:form {:no-validate true}
+      [:form {:no-validate true
+              :style {"--form-zoom" 1.125}}
+       ;; FULL-NAME FIELD
        [:div.form-group
         [:input {:name :full-name,
                  :type :text,
                  :required true,
-                 :class (with-validity
-                          ::full-name full-name
-                          "w-full")
+                 :class (with-validity some?
+                                       ::full-name full-name
+                                       "w-full")
                  :value full-name
                  :on-change (form-field-changed! form-state :full-name)
                  }]
@@ -63,35 +66,36 @@
         [:input {:name :email,
                  :type :email,
                  :required true,
-                 :class (with-validity
-                          ::email email
-                          "w-full")
+                 :class (with-validity some?
+                                       ::email email
+                                       "w-full")
                  :value email
                  :on-change (form-field-changed! form-state :email)
                  }]
         [:label "Adresse email" [:span.hint (:email user-hints)]]
         [:span.bar]]
+       ;; MESSAGE FIELD
        [:div.form-group
         [:textarea {:name :message,
                     :required true,
-                    :class (with-validity
-                             ::message message
-                             "w-full" "resize-y"),
+                    :class (with-validity some?
+                                          ::message message
+                                          "w-full" "resize-y"),
                     :value message,
                     :on-change (form-field-changed! form-state :message)
                     }]
         [:label "Message" [:span.hint (:message user-hints)]]
         [:span.bar]]
-       [:button {:id :contact-form-submit,
-                 :disabled (not valid-form),
-                 :class (into ["p-2" "text-white" "w-1/2"
-                               "bg-red-500" "text-center"]
-                          (if-not valid-form
-                            ["opacity-50 cursor-not-allowed"]))
-                 :on-click (fn [event]
-                             (.preventDefault event)
-                             (.stopPropagation event)
-                             (for [k ['full-name 'email 'message]]
-                               (swap! form-state
-                                 assoc (keyword k) (or (eval k) ""))))}
+       [:button#contact-form-submit,
+        {:disabled (not valid-form),
+         :class (into ["p-2" "text-white" "w-1/2"
+                       "bg-red-500" "text-center"]
+                  (when-not valid-form
+                    ["opacity-50 cursor-not-allowed"]))
+         :on-click (fn [event]
+                     (.preventDefault event)
+                     (.stopPropagation event)
+                     (for [k ['full-name 'email 'message]]
+                       (swap! form-state
+                         assoc (keyword k) (or (eval k) ""))))}
         "Envoyer"]])))

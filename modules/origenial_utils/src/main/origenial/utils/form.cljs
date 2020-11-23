@@ -2,6 +2,7 @@
   "This namespace aims at defining cross project form utilies"
   (:require
    [cljs.spec.alpha :as spec]
+   [clojure.string :refer [blank?]]
    [origenial.utils.core :refer [join-keyword]]))
 
 (defn email?
@@ -26,18 +27,24 @@
   (fn [_]
     (swap! state assoc (join-keyword key :focused) bool)))
 
-(defn validity-class
+
+(defn ^:private validity-class
   "Calculate the vality of a field.
    Returns nil if the field is untouched,
    'valid' if it validates the spec,
    'invalid' otherwise."
-  [spec field]
-  (when (some? field)
-    (if (spec/valid? spec field) "valid" "invalid")))
+  [pre-preds spec field]
+  (let [not-undefined?
+        (cond
+          (fn? pre-preds) pre-preds
+          (coll? pre-preds) #(every? boolean
+                                    ((apply juxt pre-preds) %)))]
+  (when (not-undefined? field)
+    (if (spec/valid? spec field) "valid" "invalid"))))
 
 (defn with-validity
   "Take a vector of CSS classes and adds the 'valid' or 'invalid' class
   depending on the state of the form-field and its specification"
-  ([spec field & classes]
-   (let [validity (validity-class spec field)]
+  ([pre-preds spec field & classes]
+   (let [validity (validity-class pre-preds spec field)]
      (into classes (vector validity)))))

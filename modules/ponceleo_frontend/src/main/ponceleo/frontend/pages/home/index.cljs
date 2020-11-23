@@ -14,14 +14,14 @@
   "HTML Landing section of the website. This section gathers the Motto below
   the product's name and a tiny newsletter subscription form"
   []
-  [:div#landing {:class ["relative" "h-3/4" "flex" "flex-col" "bg-cover"
-                         "bg-header-image" "bg-no-repeat" "items-center"]}
-   [:div {:class ["bg-black" "absolute" "w-full" "min-h-full"
-                  "bg-opacity-50"]}]
+  [:div#landing {:class ["relative" "h-3/4" "flex" "flex-col" "items-center"]}
+   [:div.overlay {:class ["bg-header-image" "bg-blurred-4" "bg-cover"
+                  "bg-no-repeat"]}]
+   [:div.overlay {:class ["bg-black" "bg-opacity-50"]}]
    [:div {:class ["container" "w-3/4" "relative" "my-auto" "flex" "flex-col"
                   "xl:flex-row" "flex-initial"]}
     motto-section
-    subscribe-section]])
+    [subscribe-section]]])
 
 (defn features
   "HTML stateless Section presenting the features of the product"
