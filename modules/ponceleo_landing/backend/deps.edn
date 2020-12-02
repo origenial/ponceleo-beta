@@ -8,6 +8,7 @@
   io.pedestal/pedestal.jetty {:mvn/version "0.5.8"}
   org.slf4j/slf4j-simple {:mvn/version "1.7.30"}
   origenial/utils {:local/root "../../origenial_utils"}
+  ponceleo.landing/common {:local/root "../common"}
   #_#_ponceleo.core/backend {:local/root "../../ponceleo_core/backend"}}
 
  :paths

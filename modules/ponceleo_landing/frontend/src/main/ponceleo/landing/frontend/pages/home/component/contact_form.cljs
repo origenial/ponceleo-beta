@@ -3,21 +3,9 @@
   interactions."
   (:require
     [clojure.spec.alpha :as spec]
-    [clojure.string :refer [trim split]]
-    [origenial.utils.form :refer [email? form-field-changed! with-validity]]
+    [origenial.utils.form :refer [form-field-changed! with-validity]]
+    [ponceleo.landing.common.spec.contact-form :as form-spec]
     [reagent.core :as reagent]))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; FORM VALIDATION SPECIFICATION  ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(spec/def ::full-name
-  (spec/and string? not-empty))
-(spec/def ::email
-  (spec/and string? email? not-empty))
-(spec/def ::message
-  (spec/and string? not-empty #(-> % trim (split #"\s") count (>= 5))))
-(spec/def ::contact-form
-  (spec/keys :req-un [::full-name ::email ::message]))
 
 (def ^:private user-hints
   "Defines the error/hint messages that need to be displayed when the form's
@@ -44,7 +32,7 @@
           full-name  (:full-name @form-state)
           email      (:email @form-state)
           message    (:message @form-state)
-          valid-form (spec/valid? ::contact-form @form-state)
+          valid-form (spec/valid? ::form-spec/contact-form @form-state)
           ]
       [:form {:no-validate true
               :style {"--form-zoom" 1.125}}
@@ -54,7 +42,7 @@
                  :type :text,
                  :required true,
                  :class (with-validity some?
-                                       ::full-name full-name
+                                       ::form-spec/full-name full-name
                                        "w-full")
                  :value full-name
                  :on-change (form-field-changed! form-state :full-name)
@@ -67,7 +55,7 @@
                  :type :email,
                  :required true,
                  :class (with-validity some?
-                                       ::email email
+                                       ::form-spec/email email
                                        "w-full")
                  :value email
                  :on-change (form-field-changed! form-state :email)
@@ -79,7 +67,7 @@
         [:textarea {:name :message,
                     :required true,
                     :class (with-validity some?
-                                          ::message message
+                                          ::form-spec/message message
                                           "w-full" "resize-y"),
                     :value message,
                     :on-change (form-field-changed! form-state :message)

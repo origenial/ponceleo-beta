@@ -19,6 +19,7 @@
   me.raynes/fs {:mvn/version "1.4.6"}
   clj-commons/conch {:mvn/version "0.9.2"}
   origenial/utils {:local/root "../../origenial_utils"}
+  ponceleo.landing/common {:local/root "../common"}
   #_#_ponceleo.core/backend {:local/root "../../ponceleo_core/backend"}}
 
  :paths

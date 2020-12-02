@@ -5,18 +5,13 @@
    [clojure.spec.alpha :as spec]
    [clojure.string :refer [blank?]]
    [origenial.utils.form :refer [email? form-field-changed! with-validity]]
+   [ponceleo.landing.common.spec.subscribe-form :as subscribe-spec]
    [reagent.core :as reagent]))
 
 ;; -------------------------
 ;; Utils
 (def ^:private nb-space \u00A0)
 (def ^:private nb-hyphen \u2011)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; FORM VALIDATION SPECIFICATION  ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(spec/def ::email
-  (spec/and (spec/and string? email? (complement blank?))))
 
 (defonce
   ^{:doc "State of the subscription form, defined once to persist through
@@ -49,7 +44,7 @@
            :type :email,
            :required true,
            :class (with-validity not-empty
-                    ::email email
+                    ::subscribe-spec/email email
                     "p-2" "w-full")
            :value email
            :on-change (form-field-changed! form-state :email)}]
