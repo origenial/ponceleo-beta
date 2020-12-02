@@ -13,4 +13,5 @@ pom.xml.asc
 /node_modules
 /public/
 /out
+/src/dev/user.clj
 

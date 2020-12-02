@@ -56,6 +56,4 @@
    :entries [ponceleo.frontend.next.pages.app
              ponceleo.frontend.next.pages.document
              ponceleo.frontend.next.pages.error
-             ponceleo.frontend.core]
-   :dev {:compiler-options {:optimizations :none}}
-   :release {:compiler-options {:optimizations :simple}}}}}
+             ponceleo.frontend.core]}}}
