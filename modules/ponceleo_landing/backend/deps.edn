@@ -1,0 +1,23 @@
+{
+ :deps
+ {org.clojure/clojure {:mvn/version "1.10.1"}
+  org.clojure/data.json {:mvn/version "1.0.0"}
+  yogthos/config {:mvn/version "1.1.7"}
+  io.pedestal/pedestal.service {:mvn/version "0.5.8"}
+  io.pedestal/pedestal.route {:mvn/version "0.5.8"}
+  io.pedestal/pedestal.jetty {:mvn/version "0.5.8"}
+  org.slf4j/slf4j-simple {:mvn/version "1.7.30"}
+  origenial/utils {:local/root "../../origenial_utils"}
+  #_#_ponceleo.core/backend {:local/root "../../ponceleo_core/backend"}}
+
+ :paths
+ ["src/main" "src/dev" "src/test" "src/resources"]
+
+ :aliases
+ {
+    :env/dev {:jvm-opts ["-Dconfig=./env/dev.config.edn"]
+              :extra-deps {}}
+    :env/prod {:jvm-opts ["-Dconfig=./env/prod.config.edn"]}
+    :env/local {:jvm-opts ["-Dconfig=./env/local.config.edn"]}
+ }
+}

@@ -10,17 +10,22 @@ sake) is to keep every shippable and unstable artifacts in the same directory.
 By using a modular architecture, and a mono-repository, We will
 enable code reuse, atomic commits, and it won't prevent us from shipping modules into 'git subtrees' or 'git submodules'.
 
-## Organisation
+## General Organisation
 
-For simplifiing the 'mono-repository' management, please do not create a folder
+For simplifing the 'mono-repository' management, please do not create a deep folder
 hierarchy for the modules. Every module should be kept in the same directory level.
 
 Instead of creating a lib under the folder 
-'/modules/prefix1/prefix2/awesome_lib'.
- Please prefer : '/modules/prefix1_prefix2_awesome-lib'.
+'/modules/module1/submodule1/awesome_lib'.
+ Please prefer : '/modules/module1/submodule1_awesome-lib'.
 
 Please, make everything possible to **avoid tight coupling** The idea is that
 each subtree should sustain itself and be shippable.
+
+## Specific organisation
+
+The `ponceleo_*` modules are likely to contain 3 submodules `backend`, `common`, and `frontend`.
+Each module can depend on the `ponceleo.core.*` libraries gathered in the `ponceleo_core` module.
 
 ## Caveats
 
