@@ -10,7 +10,7 @@
   "Defines the API route schema."
   (route/expand-routes
     #{["/greet"
-       :get [intc/coerce-body intc/content-neg respond-hello]
+       :get [intc/body-coercer intc/content-negotiator respond-hello]
        :route-name :greet]
       ["/echo"
        :get echo]}))

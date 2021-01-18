@@ -3,8 +3,7 @@
   (as a Reagent component)"
   (:require
    [clojure.spec.alpha :as spec]
-   [clojure.string :refer [blank?]]
-   [origenial.utils.form :refer [email? form-field-changed! with-validity]]
+   [origenial.utils.form :refer [form-field-changed! with-validity]]
    [ponceleo.landing.common.spec.subscribe-form :as subscribe-spec]
    [reagent.core :as reagent]))
 
@@ -25,7 +24,7 @@
   []
   (fn []
     (let [email      (:email @form-state)
-          form-valid (spec/valid? ::email email)]
+          form-valid (spec/valid? ::subscribe-spec/email email)]
       [:div {:class ["text-white" "lg:ml-8"]}
        [:div {:class ["text-center" "mb-8"]}
         [:span {:class ["text-3xl"]} "Testez en "]
@@ -54,11 +53,10 @@
          {:disabled (not form-valid)
           :title (when-not form-valid "Veuillez fournir votre adresse mail")
           :class (into ["p-2" "w-full" "bg-red-500" "text-center"]
-                   (when-not form-valid ["cursor-not-allowed"]))
+                       (when-not form-valid ["cursor-not-allowed"]))
           :on-click (fn [event]
                       (.preventDefault event)
                       (.stopPropagation event))}
          "M'inscrire"]]
        [:div {:class ["w-full" "text-right"]}
         [:span.text-sm "* : Garantie sans spam"]]])))
-

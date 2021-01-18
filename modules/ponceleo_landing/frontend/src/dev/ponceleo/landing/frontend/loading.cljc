@@ -1,4 +1,4 @@
-(ns ponceleo.landing.frontend.spa.loading
+(ns ponceleo.landing.frontend.loading
   "Namespace for preparing an HTML bootloader for the SPA when working in
    developement environment. This HTML defined in Hiccup syntax aims at
    displaying an host message, loading css and js files of the SPA"
@@ -17,10 +17,7 @@
 (def pending-body
   "HTML temporary body while the main app.js is loading. (Shadow-cljs)"
   [:div#app
-   [:h2 "Welcome to  ponceleo"]
-   [:p "The page is loading ..."]
-   [:p "Please wait while Shadow-cljs is waking up ... It might take a bit of time"]
-   [:p "(Check the js console for hints if nothing exciting happens.)"]])
+   [:h1 "Chargement de Ponceleo ..."]])
 
 (defn loading-page
   "HTML temporary loading page when developing with (Shadow-cljs)
@@ -33,7 +30,3 @@
     (head)
     [:body pending-body]
     (include-js "/js/out/app.js")))
-
-
-
-

@@ -1,0 +1,14 @@
+{:deps
+ {org.clojure/clojure {:mvn/version "1.10.1"}
+
+  ponceleo.core/backend {:local/root "../../modules/ponceleo_core/backend"}
+  ponceleo.core/common {:local/root "../../modules/ponceleo_core/common"}
+  ponceleo.container/backend {:local/root "../../modules/ponceleo_container/backend"}
+  ponceleo.container/common {:local/root "../../modules/ponceleo_container/common"}
+  ponceleo.proxy/backend {:local/root "../../modules/ponceleo_proxy/backend"}
+  ponceleo.proxy/common {:local/root "../../modules/ponceleo_proxy/common"}
+  ponceleo.landing/backend {:local/root "../../modules/ponceleo_landing/backend"}
+  ponceleo.landing/common {:local/root "../../modules/ponceleo_landing/common"}
+  origenial/utils {:local/root "../../modules/origenial_utils"}}
+
+ }

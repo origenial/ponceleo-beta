@@ -23,4 +23,5 @@
   #_#_ponceleo.core/backend {:local/root "../../ponceleo_core/backend"}}
 
  :paths
- ["src/main" "src/dev" "src/test" "src/resources"]}
+ ["src/main" "src/dev" "src/test" "src/resources"]
+ }

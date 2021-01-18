@@ -38,15 +38,15 @@
 ;;;;;;;;;;;;;;
 ;; Interceptors
 
-(def content-neg
+(def content-negotiator
  "Defines a content-negociation Interceptor"
  (conneg/negotiate-content supported-content-types))
 
-(def coerce-body
+(def body-coercer
  "Interceptor that coerce the HTTP response to the Accepted Content-Type if
  not already done yet.
  Only supports `ponceleo.landing.backend.interceptor.common/supported-content-types`"
-  {:name ::coerce-body
+  {:name ::body-coercer
    :leave
    (fn [context]
      (cond-> context

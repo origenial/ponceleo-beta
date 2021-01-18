@@ -23,37 +23,12 @@
   {:target :browser
    :asset-path "/js/out"
    :output-dir "target/public/js/out"
-   :js-options {:resolve
-                {"next/image"
-                 {:target :file
-                  :file "src/dev/ponceleo/frontend/polyfills/next-image.js"}}}
    :devtools {:repl-pprint true
               :http-root "target/public"
               :http-port 3449}
    :build-hooks [(ponceleo.landing.frontend.hooks/create-index-html! "target" "public")
                  (ponceleo.landing.frontend.hooks/copy-dir!
-                   ["src" "resources" "img"]
-                   ["target" "public"])]
-   :modules {:app {:entries [ponceleo.landing.frontend.spa.start]}}}
-
-  ;;;;;;;;;;;;;;;;;
-  ;;NEXT BUILD
-  ;;Aims at pre-compiling the application in /pages/**/*.js files
-  ;;This enables the application to be then compiled with Next.js to get
-  ;;Production ready
-  ;;Uses the /env/dev/* files and precisely ponceleo.next.* features
-  ;;;;;;;;;;;;;;;;;
-  :next
-  {:target :npm-module
-   :output-dir "target/next/cljs/"
-   :build-hooks [(ponceleo.landing.frontend.hooks/create-next-page!
-                   {:page-dir ["pages"]
-                    :cljs-dir ["target" "next" "cljs"]
-                    :css-dir ["src" "resources" "style"]})
-                 (ponceleo.landing.frontend.hooks/copy-dir!
-                   ["src" "resources" "img"]
-                   ["public"])]
-   :entries [ponceleo.landing.frontend.next.pages.app
-             ponceleo.landing.frontend.next.pages.document
-             ponceleo.landing.frontend.next.pages.error
-             ponceleo.landing.frontend.core]}}}
+                  ["src" "resources" "img"]
+                  ["target" "public"])]
+   :modules {:app {:entries [ponceleo.landing.frontend.start]}}}}
+ }

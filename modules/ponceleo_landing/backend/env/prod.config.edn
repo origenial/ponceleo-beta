@@ -7,4 +7,11 @@
  ;; (config.core/reload-env) reload env variables for current REPL
 
  :production true
-}
+
+ :mail-server
+ {:default-sender "le.site@ponceleo.com"
+  :host "mail.ponceleo.com"
+  :port 587
+  :tls true
+  :user "le.site@ponceleo.com"
+  :pass nil}} ;; It's a secret 8)

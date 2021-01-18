@@ -1,8 +1,9 @@
 (ns ponceleo.landing.common.spec.contact-form
   (:require
-    [clojure.spec.alpha :as spec]
-    [clojure.string :refer [trim split]]
-    [origenial.utils.form :refer [email?]]))
+   #?(:clj [clojure.spec.alpha :as spec]
+      :cljs [cljs.spec.alpha :as spec])
+   [clojure.string :refer [trim split]]
+   [origenial.utils.form :refer [email?]]))
 
 (spec/def ::full-name
   (spec/and string? not-empty))
@@ -16,4 +17,3 @@
                                    (>= 5))))
 (spec/def ::contact-form
   (spec/keys :req-un [::full-name ::email ::message]))
-

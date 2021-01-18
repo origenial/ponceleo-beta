@@ -6,4 +6,12 @@
  ;; (config.core/reload-env) reload env variables for current REPL
 
  :dev true
-}
+ ;; I'm using maildev as decribed here https://www.grafikart.fr/tutoriels/maildev-tester-emails-595
+ ;; In local environment
+ :mail-server
+ {:default-sender "le.site@ponceleo.com"
+  :host "localhost"
+  :port 1025
+  :ssl false
+  :user nil
+  :pass nil}}

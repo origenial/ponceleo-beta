@@ -51,7 +51,7 @@
          biens. " [:strong "Plus d'entretien, moins de pépins!"]]}
        {:key "feature-partners"
         :image-src "/img/partners-network-icon.svg",
-        :image-alt "Icône réseau de patenaires",
+        :image-alt "Icône réseau de partenaires",
         :feature-caption "Bénéficiez d'offres partenaires"
         :feature-description
         ["Bénéficiez d'offres commerciales chez notre réseau de partenaires
@@ -98,8 +98,8 @@
    :next/export-as "default"}
   []
   (as-element
-    [:div
-     [landing]
-     [features]
-     [stats]
-     [contact]]))
+   [:div
+    [landing]
+    [features]
+    [stats]
+    [contact]]))

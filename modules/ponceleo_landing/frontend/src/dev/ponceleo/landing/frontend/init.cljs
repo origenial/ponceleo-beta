@@ -1,4 +1,4 @@
-(ns ponceleo.landing.frontend.spa.init
+(ns ponceleo.landing.frontend.init
   "This namespace provides utility functions to bootload the SPA application"
   (:require
    [accountant.core :as accountant]
@@ -49,4 +49,3 @@
        (boolean (reitit/match-by-path router path)))})
   (accountant/dispatch-current!)
   (mount-root))
-
