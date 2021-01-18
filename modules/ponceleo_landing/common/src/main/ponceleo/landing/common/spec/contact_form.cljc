@@ -9,11 +9,13 @@
   (spec/and string? not-empty))
 (spec/def ::email
   (spec/and string? email? not-empty))
+(spec/def ::subject
+  (spec/and string? not-empty))
 (spec/def ::message
   (spec/and string? not-empty #(-> (trim %)
                                    (split #"\s")
-                                   (partial filter not-empty)
+                                   ((partial filter not-empty))
                                    count
                                    (>= 5))))
 (spec/def ::contact-form
-  (spec/keys :req-un [::full-name ::email ::message]))
+  (spec/keys :req-un [::full-name ::email ::subject ::message]))

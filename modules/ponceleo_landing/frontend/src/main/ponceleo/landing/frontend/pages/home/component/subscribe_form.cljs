@@ -3,6 +3,8 @@
   (as a Reagent component)"
   (:require
    [clojure.spec.alpha :as spec]
+   [clojure.string :as str]
+   [origenial.utils :refer [mailto-uri]]
    [origenial.utils.form :refer [form-field-changed! with-validity]]
    [ponceleo.landing.common.spec.subscribe-form :as subscribe-spec]
    [reagent.core :as reagent]))
@@ -12,12 +14,33 @@
 (def ^:private nb-space \u00A0)
 (def ^:private nb-hyphen \u2011)
 
+(defn build-mail-href
+  "Build a subscription mailto URI given a subscriber mail addresses"
+  [dest]
+  (mailto-uri
+   "lyderic.dutillieux@ponceleo.com"
+   :subject "Demande d'inscription à la newsletter"
+   :body (str/join
+          "\n"
+          ["Madame, Monsieur,"
+           ""
+           (str "J'aimerais m'inscrire à la newsletter de Ponceleo avec l'adresse mail : "
+                dest)
+           ""
+           "Je suis intéressé par :"
+           "- [X] Les avancées de l'application"
+           "- [X] Les avancées de l'entreprise"
+           "- [X] Les offres commerciales de Ponceleo"
+           ""
+           "Merci par avance !"])))
+
 (defonce
   ^{:doc "State of the subscription form, defined once to persist through
   re-renderings"
     :private true}
   form-state
   (reagent/atom {:email nil}))
+
 
 (defn subscribe-section
   "'Newsletter Subscription Form' Reagent Component"
@@ -52,11 +75,13 @@
         [:button#subscribe-form-submit
          {:disabled (not form-valid)
           :title (when-not form-valid "Veuillez fournir votre adresse mail")
-          :class (into ["p-2" "w-full" "bg-red-500" "text-center"]
+          :class (into ["p-2" "w-full" "bg-red-500" "text-center"
+                        "shadow-sm" "rounded-sm"]
                        (when-not form-valid ["cursor-not-allowed"]))
           :on-click (fn [event]
                       (.preventDefault event)
-                      (.stopPropagation event))}
+                      (.stopPropagation event)
+                      (set! (. js/window -location) (build-mail-href email)))}
          "M'inscrire"]]
        [:div {:class ["w-full" "text-right"]}
         [:span.text-sm "* : Garantie sans spam"]]])))
