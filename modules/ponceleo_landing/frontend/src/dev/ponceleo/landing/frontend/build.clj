@@ -11,17 +11,16 @@
 ;; SYSTEM UTILITIES
 
 (defn copy-dir!
- "Utility function to copy a dir within another dir after cleaning the target
+  "Utility function to copy a dir within another dir after cleaning the target
   dir"
- {:shadow.build/stage :configure}
- [source-dir within-to-dir]
- (let [source       (s/join "/" source-dir)
-       dest         (s/join "/" within-to-dir)
-       existing-dir (s/join "/" (concat within-to-dir [(last source-dir)]))]
-  (mkdirs dest)             ;; Create directory if it doesn't exist
-  (delete-dir existing-dir) ;; Delete target dir if it exists
-  (copy-dir source dest)    ;; Copy directory
-  (println "Copied '" source "' folder to '" dest "'.")))
+  [source-dir within-to-dir]
+  (let [source       (s/join "/" source-dir)
+        dest         (s/join "/" within-to-dir)
+        existing-dir (s/join "/" (concat within-to-dir [(last source-dir)]))]
+    (mkdirs dest)             ;; Create directory if it doesn't exist
+    (delete-dir existing-dir) ;; Delete target dir if it exists
+    (copy-dir source dest)    ;; Copy directory
+    (println "Copied '" source "' folder to '" dest "'.")))
 
 ;; END OF SYSTEM UTILIES
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

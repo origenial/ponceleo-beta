@@ -21,6 +21,7 @@ pom.xml.asc
 /resources/public/out
 /.env.config.edn
 /.env.cljs.edn
+/.env.*
 /.shadow-cljs/
 /.next/
 /pages/

@@ -1,11 +1,12 @@
 /**
   Main css file for the SPA.
   This file aims at defining cross-page styles
- */
+*/
 @import "form.css";
 
 body {
-  font-family: 'Helvetica Neue', Verdana, Helvetica, Arial, sans-serif;
+  font-family: Fira Sans,Robot,Ubuntu,sans-serif;
+  font-style: normal;
 }
 
 textarea {
@@ -13,16 +14,29 @@ textarea {
 }
 
 .bg-blurred-2{
-filter: blur(2px);
+  filter: blur(2px);
 }
 .bg-blurred-4{
-filter: blur(4px);
+  filter: blur(4px);
 }
 .bg-blurred-6{
-filter: blur(6px);
+  filter: blur(6px);
 }
 .bg-blurred-8{
-filter: blur(8px);
+  filter: blur(8px);
 }
 
+#landing{
+  text-shadow: 2px 2px 2px black;
+  height: min(1000px, 100vh);
+  @screen sm {
+    height: min(1000px, 100vh);
+  }
+  @screen xl {
+    height: min(1000px, 90vh);
+  }
+}
 
+#stats .card{
+  text-shadow: 1px 1px 2px black;
+}

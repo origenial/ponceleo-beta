@@ -28,7 +28,7 @@
               :http-port 3449}
    :build-hooks [(ponceleo.landing.frontend.hooks/create-index-html! "target" "public")
                  (ponceleo.landing.frontend.hooks/copy-dir!
-                  ["src" "resources" "img"]
-                  ["target" "public"])]
+                  ["." "src" "resources" "img"]
+                  ["." "target" "public"])]
    :modules {:app {:entries [ponceleo.landing.frontend.start]}}}}
  }

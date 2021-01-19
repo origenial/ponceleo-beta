@@ -5,10 +5,10 @@
   be modified and MUST be returned for other build steps.
   See Shadow-cljs's documentation about build hooks"
   (:require
-    [cljs.compiler :as cljs-comp]
-    [clojure.string :refer [join]]
-    [origenial.utils :refer [recursive-delete-files]]
-    [ponceleo.landing.frontend.build :as pbuild]))
+   [cljs.compiler :as cljs-comp]
+   [clojure.string :refer [join]]
+   [origenial.utils :refer [recursive-delete-files]]
+   [ponceleo.landing.frontend.build :as pbuild]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SYSTEM HOOKS

@@ -48,8 +48,8 @@
   (fn []
     (let [email      (:email @form-state)
           form-valid (spec/valid? ::subscribe-spec/email email)]
-      [:div {:class ["text-white" "lg:ml-8"]}
-       [:div {:class ["text-center" "mb-8"]}
+      [:div {:class ["text-white"]}
+       [:div {:class ["text-center" "mb-0" "xl:mb-8"]}
         [:span {:class ["text-3xl"]} "Testez en "]
         [:span {:class ["text-3xl font-extrabold break-normal"]}
          "avant" nb-hyphen "première" nb-space "!"] [:br]
