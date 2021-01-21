@@ -7,7 +7,8 @@
    [ponceleo.landing.frontend.pages.home.component.motto :refer [motto-section]]
    [ponceleo.landing.frontend.pages.home.component.stat-card :refer [stat-card]]
    [ponceleo.landing.frontend.pages.home.component.subscribe-form :refer
-    [subscribe-section]]))
+    [subscribe-section]]
+   [ponceleo.landing.frontend.router :refer [path-for]]))
 
 (defn landing
   "HTML Landing section of the website. This section gathers the Motto below
@@ -89,6 +90,15 @@
      [:h2 {:class ["my-4" "font-bold" "text-3xl" "uppercase"]} "Nous contacter"]
      [contact-form]]))
 
+(defn footer
+  "HTML section containing the footer of the page"
+  []
+  [:footer
+   [:ul
+    [:li "Copyright © 2021"]
+    [:li "Lydéric Dutillieux"]
+    [:li [:a {:href (path-for :about)} "Mentions légales"]]]])
+
 (defn home-page
   "HTML Home page containing a landing header, feature presentations,
   statisics and a contact form"
@@ -97,4 +107,5 @@
    [landing]
    [features]
    [stats]
-   [contact]])
+   [contact]
+   [footer]])

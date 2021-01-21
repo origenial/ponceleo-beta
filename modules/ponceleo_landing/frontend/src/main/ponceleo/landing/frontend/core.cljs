@@ -17,10 +17,3 @@
       :about #'about-page
       :error-404 #'error-404
       #'error-404)))
-
-
-(defn page-container
-  "Translate a page name (stringified keyword) into the page's react component"
-  [page-name]
-  (let [page-component (page-for page-name)]
-    (as-element [:div.overflow-x-hidden [page-component]])))

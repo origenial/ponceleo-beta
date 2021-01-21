@@ -40,3 +40,42 @@ textarea {
 #stats .card{
   text-shadow: 1px 1px 2px black;
 }
+
+footer {
+  ul {
+    display:flex;
+    flex-flow : row wrap;
+    list-style:none;
+    padding:5px 10px;
+    margin:0px;
+    li:nth-of-type(n+2):before {
+      content:"\a0\a0-\a0\a0"
+    }
+  }
+}
+/** Content Styling **/
+footer {
+  font-size:0.8em;
+  position:relative;
+}
+
+#about {
+  padding: 15px;
+  h1 {
+    font-size:2rem;
+    margin-bottom:10px;
+  }
+  table {
+    table-layout:auto;
+    max-width:600px;
+    margin:15px;
+    padding:5px;
+    td,th{
+      text-align: left;
+      padding: 0px 10px;
+    }
+    th{
+      white-space: nowrap;
+    }
+  }
+}

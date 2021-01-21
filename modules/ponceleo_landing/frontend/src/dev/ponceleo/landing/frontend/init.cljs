@@ -3,7 +3,7 @@
   (:require
    [accountant.core :as accountant]
    [clerk.core :as clerk]
-   [ponceleo.landing.frontend.core :refer [page-container]]
+   [ponceleo.landing.frontend.core :refer [page-for]]
    [ponceleo.landing.frontend.router :refer [router]]
    [reagent.core :as reagent]
    [reagent.dom :as rdom]
@@ -18,7 +18,8 @@
    guess the right component thanks to SPA's Reitit router,
    and returns it."
   []
-  (fn [] [page-container (:current-page-name (session/get :route))]))
+  (fn [] (let [page (page-for (:current-page-name (session/get :route)))]
+          [page])))
 
 (defn ^:dev/after-load mount-root
   "Mount the current page as react component into the body of the page"
