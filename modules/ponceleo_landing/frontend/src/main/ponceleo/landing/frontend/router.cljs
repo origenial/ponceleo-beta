@@ -6,12 +6,12 @@
 (def router
   "Routeur Reitit pour la SPA"
   (reitit/router
-    [["/" :index]
-     ["/about" :about]
-     ["/404" :error-404]]))
+   [["/" :index]
+    ["/about" :about]
+    ["/preview" :preview]
+    ["/404" :error-404]]))
 
 (defn path-for
   "Define the URI path given a route keyword and params map"
   ([route] (:path (reitit/match-by-name router route)))
   ([route params] (:path (reitit/match-by-name router route params))))
-

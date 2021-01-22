@@ -4,6 +4,13 @@
 */
 @import "form.css";
 
+body, html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  height: 100%;
+  width: 100%;
+}
+
 body {
   font-family: Fira Sans,Robot,Ubuntu,sans-serif;
   font-style: normal;
@@ -78,4 +85,115 @@ footer {
       white-space: nowrap;
     }
   }
+}
+
+
+/**  PROTOTYPE PREVIEW **/
+
+#preview {
+  min-width: 100vw;
+  min-height:100vh;
+  background-image: url("/img/background.jpg");
+  overflow:hidden;
+  color:white;
+
+  .back{
+    margin-left:12px;
+    font-size:1.3rem;
+    a {
+      color:white;
+    }
+  }
+
+  h1{
+    margin: 40px 0px;
+    text-align:center;
+    font-size:4rem;
+    font-weight:600;
+    line-height:3.5rem;
+  }
+  h2{
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight:600;
+  }
+  .tile {
+    background: #F0F0F0;
+    width:100%;
+    max-width: 630px;
+    min-height:300px;
+    margin: 50px auto;
+    padding: 15px;
+    @screen sm{
+      border-radius: 15px;
+      box-shadow: -3px 3px 5px black;
+    }
+    color:black;
+  }
+  .belonging{
+    border:1px solid grey;
+    border-radius: 5px;
+    padding:5px 10px;
+    width:100%;
+    margin: 10px 0px;
+    .name {
+      font-weight:600px;
+      font-size:2rem;
+      margin-bottom: 0px;
+    }
+    .info{
+      width:100%;
+      text-align:center;
+      @screen sm {
+        text-align:left;
+      }
+    }
+    &-card{
+      display: flex;
+      flex-direction:column-reverse;
+      justify-content: center;
+      align-items: center;
+      @screen sm{
+        flex-direction:row;
+        img {
+          height: 128px;
+          width: 128px;
+          margin:auto;
+        }
+      }
+    }
+    &-form{
+      padding-top:20px;
+      input{
+        margin-right:0px;
+      }
+    }
+  }
+  .actions {
+    display: flex;
+    width: 100%;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    align-items: center;
+    button {
+      margin:10px;
+    }
+  }
+}
+
+
+.plus {
+  display:inline-block;
+  width:32px;
+  height:32px;
+  padding: 0px;
+  background:
+    linear-gradient(white, white),
+    linear-gradient(white, white),
+    black;
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size: 50% 2px,2px 50%; /*thickness = 2px, length = 50% (25px)*/
+  color: white;
+  border-radius:50%;
 }

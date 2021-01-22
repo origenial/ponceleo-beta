@@ -52,7 +52,7 @@ label {
   /* active state */
   input:focus ~ &, input.valid ~ &, input.invalid ~ &,
   textarea:focus ~ &, textarea.valid ~ &, textarea.invalid ~ & {
-    top:calc(-14px*var(--form-zoom));
+    top:calc(-15px*var(--form-zoom));
     font-size:calc(12px*var(--form-zoom));
   }
   input.valid:not(:focus) ~ &,

@@ -7,7 +7,7 @@
   Consists of an image, a caption and a description"
   [card]
   [:div {:key (:key card)
-         :class ["w-2/3" "md:w-1/2" "lg:w-1/3" "p-8" "sm:p-4" "md:p-8"
+         :class ["w-full" "md:w-1/2" "lg:w-1/3" "p-8" "sm:p-4" "md:p-8"
                  "mx-auto"]}
    [:img {:src (:image-src card),
           :alt (:image-alt card),

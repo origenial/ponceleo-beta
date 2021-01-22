@@ -84,7 +84,7 @@
        ;; SUBJECT FIELD
        [:div.form-group
         [:input {:name :subject,
-                 :type :subject,
+                 :type :text,
                  :required true,
                  :class (with-validity some?
                           ::form-spec/subject subject
@@ -107,15 +107,14 @@
         [:label "Message" [:span.hint (:message user-hints)]]
         [:span.bar]]
        [:button#contact-form-submit,
-        {:disabled (not valid-form),
+        {:type :button
+         :disabled (not valid-form),
          :class (into ["p-2" "text-white" "w-1/2"
                        "bg-red-500" "text-center"
                        "shadow-md" "rounded-sm"]
                       (when-not valid-form
                         ["opacity-50 cursor-not-allowed"]))
          :on-click (fn [event]
-                     (.preventDefault event)
-                     (.stopPropagation event)
                      (set! (. js/window -location)
                            (build-mail-href full-name email subject message))
                      )}

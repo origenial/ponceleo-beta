@@ -19,3 +19,9 @@
 .overlay{
   @apply absolute w-full min-h-full;
 }
+
+button {
+  @apply px-4 py-1 bg-red-500 text-white;
+  @apply mx-2;
+  border-radius: 5px;
+}

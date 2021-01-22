@@ -73,14 +73,13 @@
          [:label "Adresse mail" [:span.hint "Exemple : test@test.com"]]
          [:span.bar]]
         [:button#subscribe-form-submit
-         {:disabled (not form-valid)
+         {:type :button
+          :disabled (not form-valid)
           :title (when-not form-valid "Veuillez fournir votre adresse mail")
           :class (into ["p-2" "w-full" "bg-red-500" "text-center"
                         "shadow-sm" "rounded-sm"]
                        (when-not form-valid ["cursor-not-allowed"]))
           :on-click (fn [event]
-                      (.preventDefault event)
-                      (.stopPropagation event)
                       (set! (. js/window -location) (build-mail-href email)))}
          "M'inscrire"]]
        [:div {:class ["w-full" "text-right"]}

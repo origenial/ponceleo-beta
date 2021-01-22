@@ -2,24 +2,50 @@
   "This namespace aims at defining cross project form utilies"
   (:require
    #?(:cljs [cljs.spec.alpha :as spec])
-   #?(:cljs [origenial.utils.core :refer [join-keyword]])))
+   #?(:cljs [origenial.utils.core :refer [join-keyword]])
+   [clojure.string :as str]))
 
 (defn email?
   "Predicate that returns true if a string is a valid email"
   [email]
   ;; TODO : Refactor this with Regal : (https://github.com/lambdaisland/regal)
   (let [pattern
-        #"[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?"]
+        #"[a-za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-za-z0-9](?:[a-za-z0-9-]*[a-za-z0-9])?\.)+[a-za-z0-9](?:[a-za-z0-9-]*[a-za-z0-9])?"]
     (and (string? email) (re-matches pattern email))))
+
+(defn first-match
+  "Returns the first group match of a regexp or the fullmatch"
+  [re s]
+  (let [m (re-matches re s)]
+    (cond-> m (vector? m) second)))
+
+(defn full-match
+  "Returns the fullmatch of a regexp, regardless of potential inner groups"
+  [re s]
+  (let [m (re-matches re s)]
+    (cond-> m (vector? m) first)))
+
+(defn incoming-int [text]
+  (first-match #"-?\d*" text))
+
+(defn incoming-float
+  ([text]
+   (incoming-float text 2))
+  ([text decimals]
+   (full-match (re-pattern (str "-?\\d*\\.?\\d{0," decimals "}0*")) text)))
 
 #?(:cljs
    (do
      (defn form-field-changed!
-       "Side effect utility to update a form's atom with current
+       "side effect utility to update a form's atom with current
          textfield on-input-change"
-       [state k]
-       (fn [e]
-         (swap! state assoc k (.. e -target -value))))
+       ([state k]
+        (form-field-changed! state k identity))
+       ([state k preprocessor & args-rest]
+        (fn [e]
+          (swap! state assoc k
+                 (or (apply preprocessor (.. e -target -value) args-rest)
+                     (k @state))))))
 
      (defn form-field-focused!
        "Side effect utility to update a form's atom with a boolean indicating

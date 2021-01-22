@@ -97,15 +97,16 @@
    [:ul
     [:li "Copyright © 2021"]
     [:li "Lydéric Dutillieux"]
-    [:li [:a {:href (path-for :about)} "Mentions légales"]]]])
+    [:li [:a {:href (path-for :about)} "Mentions légales"]]
+    [:li [:a {:href (path-for :preview)} "Tester le prototype"]]]])
 
 (defn home-page
-  "HTML Home page containing a landing header, feature presentations,
+"HTML Home page containing a landing header, feature presentations,
   statisics and a contact form"
-  []
-  [:div#page
-   [landing]
-   [features]
-   [stats]
-   [contact]
-   [footer]])
+[]
+[:div#page
+ [landing]
+ [features]
+ [stats]
+ [contact]
+ [footer]])
