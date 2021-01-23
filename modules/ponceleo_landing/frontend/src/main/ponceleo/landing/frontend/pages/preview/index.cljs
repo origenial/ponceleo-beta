@@ -37,13 +37,23 @@
 (defn belonging-card
   "Create an object tile from an object item"
   [{:keys [name year price] :as belonging}
-   {:keys [on-edit-request on-delete on-up on-down] :as intents}]
+   {:keys [on-edit-request on-delete-request on-up on-down] :as intents}]
   [:div.belonging.belonging-card
    [:div.info
     [:span.name name] [:br]
-    [:span year] " - " [:span price] "€"]
-   [:img {:src "https://placehold.it/64x64"}]]
-  )
+    [:span year] " - " [:span price] "€" [:br]
+    [:div.intents
+     [:button
+      {:type "button"
+       :on-click
+       (fn [e] (on-edit-request belonging))}
+      "Editer"]
+     [:button
+      {:type :button
+       :on-click (fn [e] (on-delete-request belonging))}
+      "Supprimer"]]]
+   [:img {:src "https://placehold.it/64x64"}]])
+
 
 (defn belonging-form
   "Create a belonging form from an existing belonging"
@@ -157,14 +167,17 @@
     [:h2 "Vos affaires"]
     [:div
      (for [[k belonging-vm] @belongings]
-       ^{:key k} [belonging-view belonging-vm
-                  {:on-edit-submit
-                   (fn [up-to-date]
-                     (swap! belongings assoc k {:view :ok,
-                                                :belonging up-to-date}))
-                   :on-edit-cancel
-                   (fn [_]
-                     (swap! belongings dissoc k))}])]
+       ^{:key k}
+       [belonging-view belonging-vm
+        {:on-edit-request
+         (fn [_] (swap! belongings assoc-in [k :view] :editing))
+         :on-edit-submit
+         (fn [up-to-date] (swap! belongings assoc k {:view :ok,
+                                                    :belonging up-to-date}))
+         :on-edit-cancel
+         (fn [_] (swap! belongings dissoc k))
+         :on-delete-request
+         (fn [_] (swap! belongings dissoc k))}])]
     [:div.actions
      [:button.plus
       {:on-click (fn [e]
