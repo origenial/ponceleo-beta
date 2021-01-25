@@ -38,32 +38,40 @@
   "Create an object tile from an object item"
   [{:keys [name year price] :as belonging}
    {:keys [on-edit-request on-delete-request on-up on-down] :as handler}]
-  [:div.belonging.belonging-card
-   [:div.info
-    [:span.name name] [:br]
-    [:span year] " - " [:span price] "€" [:br]
-    [:div.intents
-     [:button
-      {:type "button"
-       :on-click
-       (fn [e] (on-edit-request belonging))}
-      "Editer"]
-     [:button
-      {:type :button
-       :on-click (fn [e] (on-delete-request belonging))}
-      "Supprimer"]]
-    [:div.flex.flex-vertical
-     [:button
-      {:type "button"
-       :on-click
-       (fn [e] (on-up belonging))}
-      "↑"]]
+  [:div.belonging
+   [:div.intents
     [:button
      {:type "button"
+      :aria-label "Editer"
+      :title "Editer"
+      :on-click
+      (fn [e] (on-edit-request belonging))}
+     "✏️"]
+    [:button
+     {:type :button
+      :aria-label "Supprimer"
+      :title "Supprimer"
+      :on-click (fn [e] (on-delete-request belonging))}
+     "🗑️"]
+    [:button
+     {:type "button"
+      :aria-label "Monter"
+      :title "Monter"
+      :on-click
+      (fn [e] (on-up belonging))}
+     "↑"]
+    [:button
+     {:type "button"
+      :aria-label "Descendre"
+      :title "Descendre"
       :on-click
       (fn [e] (on-down belonging))}
      "↓"]]
-   [:img {:src "https://placehold.it/64x64"}]])
+   [:div.belonging_card
+    [:div.belonging_card_content
+     [:span.name name] [:br]
+     [:span year] " - " [:span price] "€" [:br]]
+    [:img {:src "https://placehold.it/64x64"}]]])
 
 
 (defn belonging-form
@@ -77,51 +85,56 @@
                         (update :year js/parseInt)
                         (update :price js/parseFloat))
             valid-form (spec/valid? ::belonging coerced)]
-        [:div.belonging.belonging-card
-         [:form.info.belonging-form
-          {:no-validate true}
-          [:div.form-group
-           {:class ["w-full sm:w-1/2"]
-            :style {"--form-zoom" 1.2}}
-           [:input.w-full
-            {:name :name, :type :text, :value name
-             :class (with-validity some? ::name name "")
-             :on-change (form-field-changed! fields :name)}]
-           [:label "Nom" [:span.hint (:name hints)]]
-           [:span.bar]]
-          [:div.form-group.inline-block.w-32
-           {:style {"--form-zoom" 1}}
-           [:input.w-full
-            {:name :year, :value year
-             :class (with-validity some? ::year (some-> year js/parseInt) "")
-             :on-change (form-field-changed!
-                         fields :year
-                         incoming-int)}]
-           [:label "Année" [:span.hint (:year hints)]]
-           [:span.bar]]
-          [:span " - "]
-          [:div.form-group.inline-block.w-32
-           {:style {"--form-zoom" 1}}
-           [:input.w-full
-            {:name :price, :value price
-             :class (with-validity some? ::price (some-> price js/parseFloat) "")
-             :on-change (form-field-changed! fields :price incoming-float 2)}]
-           [:label "Prix" [:span.hint (:price hints)]]
-           [:span.bar]]
-          [:span "€"]
-          [:div.intents
-           [:button
-            {:type "button"
-             :on-click
-             (fn [e] (on-edit-cancel coerced))}
-            "Annuler"]
-           [:button
-            {:type :button
-             :disabled (not valid-form),
-             :class (when-not valid-form ["opacity-50 cursor-not-allowed"]),
-             :on-click (fn [e] (on-edit-submit coerced))}
-            "Valider"]]]
-         [:img {:src "https://placehold.it/64x64"}]]))))
+        [:div.belonging
+         [:div.intents
+          [:button
+           {:type "button"
+            :aria-label "Annuler"
+            :title "Annuler"
+            :on-click
+            (fn [e] (on-edit-cancel coerced))}
+           "✘"]
+          [:button
+           {:type :button
+            :aria-label "Valider"
+            :title "Valider"
+            :disabled (not valid-form),
+            :class (when-not valid-form ["opacity-50 cursor-not-allowed"]),
+            :on-click (fn [e] (on-edit-submit coerced))}
+           "✔"]]
+         [:div.belonging_card
+          [:form.belonging_card_content
+           {:no-validate true}
+           [:div.form-group
+            {:class ["w-full sm:w-1/2"]
+             :style {"--form-zoom" 1.2}}
+            [:input.w-full
+             {:name :name, :type :text, :value name
+              :class (with-validity some? ::name name "")
+              :on-change (form-field-changed! fields :name)}]
+            [:label "Nom" [:span.hint (:name hints)]]
+            [:span.bar]]
+           [:div.form-group.inline-block.w-32
+            {:style {"--form-zoom" 1}}
+            [:input.w-full
+             {:name :year, :value year
+              :class (with-validity some? ::year (some-> year js/parseInt) "")
+              :on-change (form-field-changed!
+                          fields :year
+                          incoming-int)}]
+            [:label "Année" [:span.hint (:year hints)]]
+            [:span.bar]]
+           [:span " - "]
+           [:div.form-group.inline-block.w-32
+            {:style {"--form-zoom" 1}}
+            [:input.w-full
+             {:name :price, :value price
+              :class (with-validity some? ::price (some-> price js/parseFloat) "")
+              :on-change (form-field-changed! fields :price incoming-float 2)}]
+            [:label "Prix" [:span.hint (:price hints)]]
+            [:span.bar]]
+           [:span "€"]]
+          [:img {:src "https://placehold.it/64x64"}]]]))))
 
 
 (defn belonging-view

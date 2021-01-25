@@ -14,7 +14,7 @@ form{
 }
 .form-group{
   position:relative;
-  margin-bottom:20px;
+  margin-top:calc(18px*var(--form-zoom));
 }
 input, textarea {
   font-size:calc(14px*var(--form-zoom));
