@@ -32,7 +32,8 @@
   ([text]
    (incoming-float text 2))
   ([text decimals]
-   (full-match (re-pattern (str "-?\\d*\\.?\\d{0," decimals "}0*")) text)))
+   (let [unlocalized (str/replace text "," "." )]
+     (full-match (re-pattern (str "-?\\d*\\.?\\d{0," decimals "}0*")) unlocalized))))
 
 #?(:cljs
    (do

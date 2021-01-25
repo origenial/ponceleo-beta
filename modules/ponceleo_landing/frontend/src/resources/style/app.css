@@ -91,7 +91,6 @@ footer {
 /**  PROTOTYPE PREVIEW **/
 
 #preview {
-  min-width: 100vw;
   min-height:100vh;
   background-image: url("/img/background.jpg");
   overflow:hidden;
