@@ -106,7 +106,7 @@
                     }]
         [:label "Message" [:span.hint (:message user-hints)]]
         [:span.bar]]
-       [:button#contact-form-submit,
+       [:button#contact-form-submit.my-8,
         {:type :button
          :disabled (not valid-form),
          :class (into ["p-2" "text-white" "w-1/2"

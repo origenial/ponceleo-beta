@@ -29,4 +29,4 @@
   (html5
     (head)
     [:body pending-body]
-    (include-js "/js/out/app.js")))
+    (include-js "/js/out/main.js")))

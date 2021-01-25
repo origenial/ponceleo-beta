@@ -13,7 +13,7 @@
   pez/clerk {:mvn/version "1.0.0"}
   venantius/accountant {:mvn/version "0.2.5"
                         :exclusions [org.clojure/tools.reader]}
-  thheller/shadow-cljs {:mvn/version "RELEASE"}
+  thheller/shadow-cljs {:mvn/version "2.11.6"}
   binaryage/devtools {:mvn/version "1.0.2"}
   prone {:mvn/version "2020-01-17"}
   me.raynes/fs {:mvn/version "1.4.6"}

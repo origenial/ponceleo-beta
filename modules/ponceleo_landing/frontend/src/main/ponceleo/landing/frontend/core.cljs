@@ -3,18 +3,25 @@
   reitit's router routes.
   This namespace also aims at providing state management mechanisms"
   (:require
-   [ponceleo.landing.frontend.pages.about.index :refer [about-page]]
-   [ponceleo.landing.frontend.pages.error :refer [error-404]]
-   [ponceleo.landing.frontend.pages.home.index :refer [home-page]]
-   [ponceleo.landing.frontend.pages.preview.index :refer [preview-page]]))
+   [origenial.utils.react :refer [lazy-component]]
+   ["react" :as react]
+   [reagent.core :as reagent]))
+
+;; Lazy components definition
+(def home ""      (lazy-component ponceleo.landing.frontend.pages.home.index/home-page))
+(def about ""     (lazy-component ponceleo.landing.frontend.pages.about.index/about-page))
+(def preview ""   (lazy-component ponceleo.landing.frontend.pages.preview.index/preview-page))
+(def error-404 "" (lazy-component ponceleo.landing.frontend.pages.error/error-404))
+
 
 (defn page-for
   "Translate routes into page components"
   [page-name]
   (let [route (if(string? page-name) (keyword page-name) page-name)]
-    (case route
-      :about #'about-page
-      :index #'home-page
-      :preview #'preview-page
-      :error-404 #'error-404
-      #'error-404)))
+    [:> react/Suspense {:fallback (reagent/as-element [:div "Chargement en cours ..."])}
+     (case route
+       :index [:> home]
+       :about [:> about]
+       :preview [:> preview]
+       :error-404 [:> error-404]
+       [:> error-404])]))

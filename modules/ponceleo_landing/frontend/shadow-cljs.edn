@@ -30,5 +30,17 @@
                  (ponceleo.landing.frontend.hooks/copy-dir!
                   ["." "src" "resources" "img"]
                   ["." "target" "public"])]
-   :modules {:app {:entries [ponceleo.landing.frontend.start]}}}}
+   :module-loader true
+   :modules {:main
+             {:init-fn ponceleo.landing.frontend.init/init!}
+
+             :home
+             {:entries [ponceleo.landing.frontend.pages.home.index
+                        ponceleo.landing.frontend.pages.about.index
+                        ponceleo.landing.frontend.pages.error]
+              :depends-on #{:main}}
+
+             :preview
+             {:entries [ponceleo.landing.frontend.pages.preview.index]
+              :depends-on #{:main}}}}}
  }

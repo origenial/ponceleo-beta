@@ -19,7 +19,7 @@
    and returns it."
   []
   (fn [] (let [page (page-for (:current-page-name (session/get :route)))]
-          [page])))
+          page)))
 
 (defn ^:dev/after-load mount-root
   "Mount the current page as react component into the body of the page"

@@ -58,9 +58,7 @@
   (let [content  (loading-page)
         out-dir  (apply io/file folders)
         out-file (io/file out-dir "index.html")]
-    (io/make-parents out-file)
-    (spit out-file content)
-    (println "Written to " (.getPath out-file))))
+    (dump-file! out-file content)))
 
 ;; END OF BUILD FILES
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -72,7 +72,7 @@
            :on-change (form-field-changed! form-state :email)}]
          [:label "Adresse mail" [:span.hint "Exemple : test@test.com"]]
          [:span.bar]]
-        [:button#subscribe-form-submit
+        [:button#subscribe-form-submit.my-4
          {:type :button
           :disabled (not form-valid)
           :title (when-not form-valid "Veuillez fournir votre adresse mail")
