@@ -130,7 +130,7 @@ footer {
     }
     color:black;
   }
-  .belonging{
+  .good{
     display:flex;
     flex-direction:row;
     border:1px solid grey;
@@ -169,7 +169,7 @@ footer {
       @screen sm{
         flex-direction:row;
       }
-      .belonging_card_content{
+      .good_card_content{
         padding:5px 20px;
         width:100%;
         height:100%;
@@ -187,7 +187,7 @@ footer {
         }
       }
     }
-    & form.belonging_card_content{
+    & form.good_card_content{
       input{
         margin-right:0px;
       }

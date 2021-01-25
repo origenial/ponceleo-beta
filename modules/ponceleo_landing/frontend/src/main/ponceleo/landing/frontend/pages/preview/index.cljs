@@ -18,7 +18,7 @@
   (spec/and integer? (partial <= 1800) (partial >= current-year)))
 (spec/def ::price
   (spec/and number? pos?))
-(spec/def ::belonging
+(spec/def ::good
   (spec/keys :req-un [::name ::year ::price]))
 
 
@@ -34,58 +34,58 @@
 ;; VIEWS
 ;;;;;;;;;;;;;;
 
-(defn belonging-card
+(defn good-card
   "Create an object tile from an object item"
-  [{:keys [name year price] :as belonging}
+  [{:keys [name year price] :as good}
    {:keys [on-edit-request on-delete-request on-up on-down] :as handler}]
-  [:div.belonging
+  [:div.good
    [:div.intents
     [:button
      {:type "button"
       :aria-label "Editer"
       :title "Editer"
       :on-click
-      (fn [e] (on-edit-request belonging))}
+      (fn [e] (on-edit-request good))}
      "✏️"]
     [:button
      {:type :button
       :aria-label "Supprimer"
       :title "Supprimer"
-      :on-click (fn [e] (on-delete-request belonging))}
+      :on-click (fn [e] (on-delete-request good))}
      "🗑️"]
     [:button
      {:type "button"
       :aria-label "Monter"
       :title "Monter"
       :on-click
-      (fn [e] (on-up belonging))}
+      (fn [e] (on-up good))}
      "↑"]
     [:button
      {:type "button"
       :aria-label "Descendre"
       :title "Descendre"
       :on-click
-      (fn [e] (on-down belonging))}
+      (fn [e] (on-down good))}
      "↓"]]
-   [:div.belonging_card
-    [:div.belonging_card_content
+   [:div.good_card
+    [:div.good_card_content
      [:span.name name] [:br]
      [:span year] " - " [:span price] "€" [:br]]
     [:img {:src "https://placehold.it/64x64"}]]])
 
 
-(defn belonging-form
-  "Create a belonging form from an existing belonging"
-  [belonging
+(defn good-form
+  "Create a good form from an existing good"
+  [good
    {:keys [on-edit-submit on-edit-cancel] :as handler}]
-  (let [fields (reagent/atom belonging)]
+  (let [fields (reagent/atom good)]
     (fn []
       (let [{:keys [name year price]} @fields
             coerced (-> @fields
                         (update :year js/parseInt)
                         (update :price js/parseFloat))
-            valid-form (spec/valid? ::belonging coerced)]
-        [:div.belonging
+            valid-form (spec/valid? ::good coerced)]
+        [:div.good
          [:div.intents
           [:button
            {:type "button"
@@ -102,8 +102,8 @@
             :class (when-not valid-form ["opacity-50 cursor-not-allowed"]),
             :on-click (fn [e] (on-edit-submit coerced))}
            "✔"]]
-         [:div.belonging_card
-          [:form.belonging_card_content
+         [:div.good_card
+          [:form.good_card_content
            {:no-validate true}
            [:div.form-group
             {:class ["w-full sm:w-1/2"]
@@ -137,36 +137,36 @@
           [:img {:src "https://placehold.it/64x64"}]]]))))
 
 
-(defn belonging-view
-  "Takes a belonging view-model and renders it depending on the view state"
-  [{:keys [view belonging]} intents]
+(defn good-view
+  "Takes a good view-model and renders it depending on the view state"
+  [{:keys [view good]} intents]
   (case (:mode view)
-    :edition [belonging-form belonging intents]
-    [belonging-card belonging intents]))
+    :edition [good-form good intents]
+    [good-card good intents]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; DATA MANIPULATION
 ;;;;;;;;;;;;;;;;;;;;;;;
 
-(def empty-belonging
-  "Value of an empty belonging with default values"
+(def empty-good
+  "Value of an empty good with default values"
   {:name nil, :price nil, :year nil})
 
-(def edition-belonging-vm ;; The -vm suffix means view-model
-  "Value of a belonging view-model in an edition state"
+(def edition-good-vm ;; The -vm suffix means view-model
+  "Value of a good view-model in an edition state"
   {:view {:mode :edition},
-   :belonging empty-belonging})
+   :good empty-good})
 
 (def fixtures
   "Fake data to test the layout"
   {:order [1 2]
    1 {:view {:mode :display},
-      :belonging {:id 1
+      :good {:id 1
                   :name "Micro-ondes"
                   :year 2018
                   :price 45}}
    2 {:view {:mode :display},
-      :belonging {:id 2
+      :good {:id 2
                   :name "Cafetière"
                   :year 2016
                   :price 25}}})
@@ -230,68 +230,68 @@
 
 (def actions
   {:start-edition
-   (fn [belonging-vms belonging]
-     (assoc-in belonging-vms
-               [(:id belonging) :view :mode] :edition))
+   (fn [good-vms good]
+     (assoc-in good-vms
+               [(:id good) :view :mode] :edition))
    :end-edition
-   (fn [belonging-vms up-to-date]
+   (fn [good-vms up-to-date]
      (let [id (:id up-to-date)]
-       (-> belonging-vms
+       (-> good-vms
            (assoc-in [id :view :mode] :display),
-           (assoc-in [id :belonging] up-to-date))))
+           (assoc-in [id :good] up-to-date))))
    :cancel-edition
-   (fn [belonging-vms being-edited]
+   (fn [good-vms being-edited]
      (let [id (:id being-edited)
-           ;; old-belonging (get-in belonging-vms [id :belonging])
-           ;; old-unindexed-value (dissoc old-belonging :id)
-           ;; was-empty (= old-unindexed-value empty-belonging)
+           ;; old-good (get-in good-vms [id :good])
+           ;; old-unindexed-value (dissoc old-good :id)
+           ;; was-empty (= old-unindexed-value empty-good)
            ]
-       (assoc-in belonging-vms [id :view :mode] :display)))
+       (assoc-in good-vms [id :view :mode] :display)))
    :add
-   (fn [belonging-vms belonging id]
-     (-> belonging-vms
-         (assoc id (assoc-in belonging [:belonging :id] id))
+   (fn [good-vms good id]
+     (-> good-vms
+         (assoc id (assoc-in good [:good :id] id))
          (update :order conj id)))
    :delete
-   (fn [belonging-vms belonging]
-     (let [id (:id belonging)]
-       (-> belonging-vms
+   (fn [good-vms good]
+     (let [id (:id good)]
+       (-> good-vms
            (dissoc id)
            (update :order remove-by-value id))))
    :move-up
-   (fn [belonging-vms belonging]
-     (update belonging-vms :order move-up-by-value (:id belonging)))
+   (fn [good-vms good]
+     (update good-vms :order move-up-by-value (:id good)))
    :move-down
-   (fn [belonging-vms belonging]
-     (update belonging-vms :order move-down-by-value (:id belonging)))})
+   (fn [good-vms good]
+     (update good-vms :order move-down-by-value (:id good)))})
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; STATE MANAGEMENT
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defonce ^{:doc "Belonging key sequence counter"}
+(defonce ^{:doc "Good key sequence counter"}
   counter (atom 10))
 
 (defonce
-  ^{:doc "State of the belonging-vm list"
+  ^{:doc "State of the good-vm list"
     :private true}
-  belongings
+  goods
   (reagent/atom fixtures))
 
 
 (def view-handler
   {:on-edit-request
-   (partial swap! belongings (:start-edition actions))
+   (partial swap! goods (:start-edition actions))
    :on-edit-submit
-   (partial swap! belongings (:end-edition actions))
+   (partial swap! goods (:end-edition actions))
    :on-edit-cancel
-   (partial swap! belongings (:cancel-edition actions))
+   (partial swap! goods (:cancel-edition actions))
    :on-delete-request
-   (partial swap! belongings (:delete actions))
+   (partial swap! goods (:delete actions))
    :on-up
-   (partial swap! belongings (:move-up actions))
+   (partial swap! goods (:move-up actions))
    :on-down
-   (partial swap! belongings (:move-down actions))})
+   (partial swap! goods (:move-down actions))})
 
 
 
@@ -306,14 +306,14 @@
    [:span.back [:a {:href (path-for :index)} "Retour"]]
    [:h1 "Votre espace personnel"]
    [:div.tile
-    [:h2 "Vos affaires"]
+    [:h2 "Vos biens"]
     [:div
-     (let [sorted-belongings (map @belongings (:order @belongings))]
-       (for [{:keys [view belonging] :as belonging-vm} sorted-belongings]
-         ^{:key (:id belonging)}
-         [belonging-view belonging-vm view-handler]))]
+     (let [sorted-goods (map @goods (:order @goods))]
+       (for [{:keys [view good] :as good-vm} sorted-goods]
+         ^{:key (:id good)}
+         [good-view good-vm view-handler]))]
     [:div.actions
      [:button.plus
       {:on-click
        (fn [e]
-         (swap! belongings (:add actions) edition-belonging-vm (swap! counter inc)))}]]]])
+         (swap! goods (:add actions) edition-good-vm (swap! counter inc)))}]]]])
