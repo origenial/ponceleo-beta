@@ -20,5 +20,5 @@
   configuration"
   []
   (swap! server-state
-    (constantly (http/start (http/create-server service-map))))
+         (constantly (http/start (http/create-server service-map))))
   nil)

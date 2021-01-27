@@ -10,6 +10,8 @@
 
  :mail-server
  {:default-sender "le.site@ponceleo.com"
+  :admin-email "lyderic.dutillieux@ponceleo.com"
+  :contact-email "lyderic.dutillieux@ponceleo.com"
   :host "mail.ponceleo.com"
   :port 587
   :tls true

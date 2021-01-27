@@ -1,7 +1,8 @@
 (ns ponceleo.landing.backend.interceptor.email
   [:require
-  [config.core :refer [env]]
-  [postal.core :as postal]])
+   [config.core :refer [env]]
+   [postal.core :as postal]
+   [ponceleo.landing.backend.status :as status]])
 
 (defn send-email!
   "Send a unique email given a map of [:from :to :cc :subject :body] and an
@@ -9,33 +10,24 @@
   ([mail-to-send]
    (send-email! mail-to-send (env :mail-server)))
   ([mail-to-send server-config]
-   (let [msg (into {}
-               (filter (comp some? val)
-                 {:from (or (mail-to-send :from)
-                          (:default-sender server-config))
-                  :to (:to mail-to-send)
-                  :cc (:cc mail-to-send)
-                  :subject (:subject mail-to-send)
-                  :body (:body mail-to-send)}))]
+   (let [sender (or (:from mail-to-send) (:default-sender server-config))
+         msg
+         (-> mail-to-send
+             (assoc :from sender)
+             (select-keys [:from :to :cc :bcc :subject :body]))]
      (postal/send-message server-config msg))))
 
-(def email-sender
-  "Interceptor that retrieves :mail-data and send mail through the network"
-  {:name :email-sender
-   :enter
-   (fn [context]
-     (let [mail-server-config (env :mail-server)
-           to-send (:mails-to-send context)
+(defn email-sender
+  "Handler that retrieves :mails-to-send from the request map and send mails
+  through the network"
+  ([request]
+   (let [mail-server-config (env :mail-server)
+         to-send (:mails-to-send request)
 
-           mails-to-send
-           (cond-> to-send (map? to-send) (vector))
+         mails-to-send
+         (cond-> to-send (map? to-send) (vector))
 
-           results
-           (for [mail-to-send mails-to-send]
-             (send-email! mail-to-send mail-server-config))] ;; send emails
-       (assoc context :response {:status 200
-                                 :body results})))
-   :error
-   (fn [context ex-info]
-     (assoc context :response {:status 500
-                               :body (.getMessage ex-info)}))})
+         results
+         (for [mail-to-send mails-to-send]
+           (send-email! mail-to-send mail-server-config))] ;; send emails
+     (status/ok results "application/edn"))))

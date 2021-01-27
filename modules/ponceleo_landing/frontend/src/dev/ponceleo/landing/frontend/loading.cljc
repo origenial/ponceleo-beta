@@ -10,6 +10,7 @@
   []
   [:head
    [:meta {:charset "utf-8"}]
+   [:title "Ponceleo, allongez la durée de vie de vos objets"]
    [:meta {:name "viewport"
            :content "width=device-width, initial-scale=1"}]
    (include-css "/css/tailwind.css" "/css/app.css")])
@@ -27,6 +28,6 @@
    Shadow-cljs or Fiwheel"
   []
   (html5
-    (head)
-    [:body pending-body]
-    (include-js "/js/out/main.js")))
+   (head)
+   [:body pending-body]
+   (include-js "/js/out/main.js")))

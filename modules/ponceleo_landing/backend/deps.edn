@@ -13,13 +13,14 @@
   #_#_ponceleo.core/backend {:local/root "../../ponceleo_core/backend"}}
 
  :paths
- ["src/main" "src/dev" "src/test" "src/resources"]
+ ["src/main" "src/resources"]
 
  :aliases
  {
-    :env/dev {:jvm-opts ["-Dconfig=./env/dev.config.edn"]
-              :extra-deps {}}
-    :env/prod {:jvm-opts ["-Dconfig=./env/prod.config.edn"]}
-    :env/local {:jvm-opts ["-Dconfig=./env/local.config.edn"]}
+  :env/dev {:jvm-opts ["-Dconfig=./env/dev.config.edn"]
+            :extra-deps {}
+            :extra-paths ["src/dev" "src/test"]}
+  :env/prod {:jvm-opts ["-Dconfig=./env/prod.config.edn"]}
+  :env/local {:jvm-opts ["-Dconfig=./env/local.config.edn"]}
+  }
  }
-}
