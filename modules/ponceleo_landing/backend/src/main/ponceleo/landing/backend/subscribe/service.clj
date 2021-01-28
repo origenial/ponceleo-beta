@@ -16,7 +16,9 @@
      ["Madame, Monsieur"
       ""
       "C'est avec plaisir que je confirme votre inscription à la newsletter de Ponceleo !"
-      "Vous recevrez dès à présent (sans spam) :"
+      (str "Dès à présent, vous recevrez (sans spam) à l'adresse "
+           dest-email
+           " :")
       " - Les avancées de l'application ;"
       " - Les avancées de l'entreprise ;"
       " - Les offres commerciales de Ponceleo."

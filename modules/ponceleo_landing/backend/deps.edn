@@ -22,5 +22,11 @@
             :extra-paths ["src/dev" "src/test"]}
   :env/prod {:jvm-opts ["-Dconfig=./env/prod.config.edn"]}
   :env/local {:jvm-opts ["-Dconfig=./env/local.config.edn"]}
-  }
- }
+
+  :project/uberjar
+  {:replace-deps {seancorfield/depstar {:mvn/version "2.0.165"}}
+   :exec-fn hf.depstar/uberjar
+   :exec-args  {:jar "target/ponceleo.standalone.jar"
+                :aot true
+                :main-class ponceleo.landing.backend.core}}
+  }}

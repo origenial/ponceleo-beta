@@ -4,6 +4,7 @@ pom.xml.asc
 *.iml
 .cpcache/
 *.jar
+**/*secret.*
 *.class
 /.clj-kondo/.cache
 /.nrepl-port
@@ -13,5 +14,6 @@ pom.xml.asc
 /node_modules
 /public/
 /out
+/target
 /src/dev/user.clj
 

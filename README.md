@@ -7,3 +7,6 @@ This is the ponceleo project.
 The code is organized as a mono-repository hosting multiple modules.
 The most advanced module is located at `/modules/ponceleo_landing/frontend`.
 It contains the home page's frontend.
+
+You can also find the landing's backend (managing email services) at
+`modules/ponceleo_landing/backend/`
