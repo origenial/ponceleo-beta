@@ -10,6 +10,7 @@ pom.xml.asc
 /.nrepl-port
 /.repl
 *.log
+.env.local
 /env/*local*
 /node_modules
 /public/

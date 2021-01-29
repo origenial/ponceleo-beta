@@ -11,13 +11,13 @@ logic such as specs shared between both frontend and backend.
 
 The frontend is a CLJS project and only contains *.clj files for useful
 macros, build and dev utilities and *.cljs files that will be compiled to Js +
-some *.js file (the least possible).   
+some *.js file (the least possible).
 
 The `deps.edn` files contains mainly cljs dependencies. These dependencies are
 added regardless of the environment in which they are mainly used since when
 the CLJS is built to js, the code is tree-shaken depending on the build you
-configure. 
- 
+configure.
+
 The frontend calls a RESTful API for backend logic. This API is developped in
 the `ponceleo.server` module.
 
@@ -28,7 +28,7 @@ javascript. The `ponceleo.spa` namespace defines an init script to be used in
 dev mode (i.e with `shadow-cljs watch :dev`) whereas the `ponceleo.next
 ` namespace defines utilities to transpile the SPA to the next-js file
 -routing format, which then need to be compiled with `next build` to get
-production ready. 
+production ready.
 
 ## Getting started
 
