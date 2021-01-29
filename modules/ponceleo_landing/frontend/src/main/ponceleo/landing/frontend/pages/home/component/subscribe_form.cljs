@@ -15,30 +15,38 @@
 ;; Utils
 (def ^:private nb-space \u00A0)
 (def ^:private nb-hyphen \u2011)
+(defn ok? "True if response status is ok"
+  [response] (<= 200 (:status response) 251))
+
 
 (defn api-subscribe
   "Call /subscribe api with :email param"
-  [email]
-  (go (<! (http/post (str core/API_URL "/subscribe")
-                     {:with-credentials? false
-                      :edn-params {:email email}}))))
-
-
+  [params]
+  (let [params (select-keys params [:email])]
+    (http/post (str core/API_URL "/subscribe")
+               {:with-credentials? false, :edn-params params})))
 
 (defonce
   ^{:doc "State of the subscription form, defined once to persist through
   re-renderings"
     :private true}
   form-state
-  (reagent/atom {:email nil}))
+  (reagent/atom {:email nil
+                 :submit nil}))
 
 
 (defn subscribe-section
   "'Newsletter Subscription Form' Reagent Component"
   []
   (fn []
-    (let [email      (:email @form-state)
-          form-valid (spec/valid? ::subscribe-spec/email email)]
+    (let [{:keys [email submit]} @form-state
+          form-valid (spec/valid? ::subscribe-spec/email email)
+          submit-disabled (or (#{:loading :success} submit) (not form-valid))
+          submit-message (case submit
+                           :loading "◌ Chargement..."
+                           :success "✔ Envoyé !"
+                           :error   "⚠ Erreur ! Réessayer"
+                           "M'inscrire")]
       [:div {:class ["text-white"]}
        [:div {:class ["text-center" "mb-0" "xl:mb-8"]}
         [:span {:class ["text-3xl"]} "Testez en "]
@@ -65,12 +73,17 @@
          [:span.bar]]
         [:button#subscribe-form-submit.my-4
          {:type :button
-          :disabled (not form-valid)
+          :disabled submit-disabled
           :title (when-not form-valid "Veuillez fournir votre adresse mail")
-          :class (into ["p-2" "w-full" "bg-red-500" "text-center"
-                        "shadow-sm" "rounded-sm"]
-                       (when-not form-valid ["cursor-not-allowed"]))
-          :on-click (fn [event] (api-subscribe email))}
-         "M'inscrire"]]
+          :class ["p-2" "w-full" "bg-red-500" "text-center" "shadow-sm" "rounded-sm"]
+          :on-click
+          (fn [event]
+            (swap! form-state assoc :submit :loading)
+            (go (let [response (<! (api-subscribe @form-state))]
+                  (swap! form-state assoc :submit
+                         (if (ok? response)
+                           :success
+                           :error)))))}
+         submit-message]]
        [:div {:class ["w-full" "text-right"]}
         [:span.text-sm "* : Garantie sans spam"]]])))

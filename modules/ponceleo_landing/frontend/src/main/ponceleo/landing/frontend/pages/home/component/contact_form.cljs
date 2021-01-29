@@ -11,12 +11,16 @@
    [ponceleo.landing.frontend.core :as core]
    [reagent.core :as reagent]))
 
+
+(defn ok? "True if response status is ok"
+  [response] (<= 200 (:status response) 251))
+
 (defn api-contact
   "Call /contact api with contact-form params"
-  [contact-form-map]
-  (go (<! (http/post (str core/API_URL "/contact")
-                     {:with-credentials? false
-                      :edn-params contact-form-map}))))
+  [params]
+  (let [params (select-keys params [:full-name :email :subject :message])]
+    (http/post (str core/API_URL "/contact")
+               {:with-credentials? false, :edn-params params})))
 
 (def ^:private user-hints
   "Defines the error/hint messages that need to be displayed when the form's
@@ -35,19 +39,21 @@
   (reagent/atom {:full-name nil
                  :email     nil
                  :subject   nil
-                 :message   nil}))
+                 :message   nil
+                 :submit    nil}))
 
 (defn contact-form
   "'Contact Form' Reagent Component"
   []
   (fn []
-    (let [
-          full-name  (:full-name @form-state)
-          email      (:email @form-state)
-          subject    (:subject @form-state)
-          message    (:message @form-state)
-          valid-form (spec/valid? ::form-spec/contact-form @form-state)
-          ]
+    (let [{:keys [full-name email subject message submit]} @form-state
+          form-valid (spec/valid? ::form-spec/contact-form @form-state)
+          submit-disabled (or (#{:loading :success} submit) (not form-valid))
+          submit-message (case submit
+                           :loading "◌ Chargement..."
+                           :success "✔ Envoyé !"
+                           :error   "⚠ Erreur ! Réessayer"
+                           "Envoyer")]
       [:form {:no-validate true
               :style {"--form-zoom" 1.125}}
        ;; FULL-NAME FIELD
@@ -103,12 +109,17 @@
         [:span.bar]]
        [:button#contact-form-submit.my-8,
         {:type :button
-         :disabled (not valid-form),
-         :class (into ["p-2" "text-white" "w-1/2"
-                       "bg-red-500" "text-center"
-                       "shadow-md" "rounded-sm"]
-                      (when-not valid-form
-                        ["opacity-50 cursor-not-allowed"]))
-         :on-click (fn [event] (api-contact @form-state))}
-        "Envoyer"]]))
+         :disabled submit-disabled,
+         :class ["p-2" "text-white" "w-1/2"
+                 "bg-red-500" "text-center"
+                 "shadow-md" "rounded-sm"]
+         :on-click
+         (fn [event]
+           (swap! form-state assoc :submit :loading)
+           (go (let [response (<! (api-contact @form-state))]
+                 (swap! form-state assoc :submit
+                        (if (ok? response)
+                          :success
+                          :error)))))}
+        submit-message]]))
   )

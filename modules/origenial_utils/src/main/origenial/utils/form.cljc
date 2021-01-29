@@ -44,9 +44,10 @@
         (form-field-changed! state k identity))
        ([state k preprocessor & args-rest]
         (fn [e]
-          (swap! state assoc k
-                 (or (apply preprocessor (.. e -target -value) args-rest)
-                     (k @state))))))
+          (swap! state assoc
+                 k (or (apply preprocessor (.. e -target -value) args-rest)
+                       (k @state))
+                 :submit nil))))
 
      (defn form-field-focused!
        "Side effect utility to update a form's atom with a boolean indicating
