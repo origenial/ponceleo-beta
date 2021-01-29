@@ -16,6 +16,14 @@
 (def ^:private nb-space \u00A0)
 (def ^:private nb-hyphen \u2011)
 
+(defn api-subscribe
+  "Call /subscribe api with :email param"
+  [email]
+  (go (<! (http/post (str core/API_URL "/subscribe")
+                     {:with-credentials? false
+                      :edn-params {:email email}}))))
+
+
 
 (defonce
   ^{:doc "State of the subscription form, defined once to persist through
@@ -62,12 +70,7 @@
           :class (into ["p-2" "w-full" "bg-red-500" "text-center"
                         "shadow-sm" "rounded-sm"]
                        (when-not form-valid ["cursor-not-allowed"]))
-          :on-click (fn [event]
-                      (go (let [response
-                                (<! (http/post (str core/API_URL "/subscribe")
-                                               {:with-credentials? false
-                                                :edn-params {:email email}}))]
-                            (prn response))))}
+          :on-click (fn [event] (api-subscribe email))}
          "M'inscrire"]]
        [:div {:class ["w-full" "text-right"]}
         [:span.text-sm "* : Garantie sans spam"]]])))

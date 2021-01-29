@@ -16,14 +16,15 @@
 
 (defn contact-error
   "Overrides response on contact-form error"
-  [context]
+  [context ex-info]
   (assoc context
          :response
          (status/internal-error
           (str "An internal error occured. "
                "The contact form to/from "
                (get-in context [:request :edn-params :email])
-               " could not be sent."))))
+               " could not be sent.\n"
+               (.getMessage ex-info)))))
 
 (def  contact-intc
   "HTTP Handler wrapping `ponceleo.landing.contact.service/prepare-emails`"

@@ -1,27 +1,22 @@
 (ns ponceleo.landing.frontend.pages.home.component.contact-form
   "This namespace defines the 'Contact Form' Reagent Component and
   interactions."
+  (:require-macros [cljs.core.async.macros :refer [go]])
   (:require
+   [cljs-http.client :as http]
+   [cljs.core.async :refer [<!]]
    [clojure.spec.alpha :as spec]
-   [clojure.string :as str]
-   [origenial.utils :refer [mailto-uri]]
    [origenial.utils.form :refer [form-field-changed! with-validity]]
    [ponceleo.landing.common.spec.contact-form :as form-spec]
+   [ponceleo.landing.frontend.core :as core]
    [reagent.core :as reagent]))
 
-(defn build-mail-href
-  "Build a subscription mailto URI given a subscriber mail addresses"
-  [fullname email subject message]
-  (mailto-uri
-   "lyderic.dutillieux@ponceleo.com"
-   :subject subject
-   :bcc email
-   :body (str/join
-          "\n"
-          [message
-           ""
-           (str fullname ",")
-           email])))
+(defn api-contact
+  "Call /contact api with contact-form params"
+  [contact-form-map]
+  (go (<! (http/post (str core/API_URL "/contact")
+                     {:with-credentials? false
+                      :edn-params contact-form-map}))))
 
 (def ^:private user-hints
   "Defines the error/hint messages that need to be displayed when the form's
@@ -114,9 +109,6 @@
                        "shadow-md" "rounded-sm"]
                       (when-not valid-form
                         ["opacity-50 cursor-not-allowed"]))
-         :on-click (fn [event]
-                     (set! (. js/window -location)
-                           (build-mail-href full-name email subject message))
-                     )}
+         :on-click (fn [event] (api-contact @form-state))}
         "Envoyer"]]))
   )
