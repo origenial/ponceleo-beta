@@ -9,10 +9,10 @@
   "Adds subscription's :mails-to-send to Pedestal's context"
   [context]
   (let [admin-email (get-in config/env [:mail-server :admin-email])
-        dest-email (get-in context [:request :edn-params :email])]
-    (assoc-in context
-              [:request :mails-to-send]
-              (:mails-to-send (prepare-emails dest-email admin-email)))))
+        params (get-in context [:request :edn-params])
+        mails (prepare-emails params admin-email)]
+    (assoc-in context [:request :mails-to-send]
+              (:mails-to-send mails))))
 
 (defn subscribe-error
   "Overrides response on subscription error"
@@ -22,7 +22,7 @@
          (status/internal-error
           (str "An internal error occured. "
                "The subscription could not succeed for "
-               (get-in context [:request :params :email])))))
+               (get-in context [:request :edn-params :email])))))
 
 (def subscribe-intc
   "HTTP Handler wrapping `ponceleo.landing.subscribe.service/prepare-emails`"

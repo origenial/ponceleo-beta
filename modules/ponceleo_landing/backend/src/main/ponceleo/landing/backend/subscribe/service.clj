@@ -5,19 +5,19 @@
 
 (defn prepare-emails
   "Prepare the emails to send for the subscribtion to be effective"
-  [dest-email admin-email]
+  [{:keys [email]} admin-email]
   {:mails-to-send
-   {:to dest-email
+   {:to email
     :bcc admin-email
     :subject "Inscription à la newsletter de Ponceleo"
     :body
     (str/join
      "\n"
-     ["Madame, Monsieur"
+     ["Madame, Monsieur,"
       ""
       "C'est avec plaisir que je confirme votre inscription à la newsletter de Ponceleo !"
       (str "Dès à présent, vous recevrez (sans spam) à l'adresse "
-           dest-email
+           email
            " :")
       " - Les avancées de l'application ;"
       " - Les avancées de l'entreprise ;"

@@ -10,22 +10,22 @@
                  through requests"}
   server-state (atom nil))
 
+(defn service-map [& [host port]]
+  (-> {::http/routes routes
+       ::http/type   :jetty
+       ::http/host   (or host "127.0.0.1")
+       ::http/port   (or port 8890)
+       ::http/join? false
+       ::http/allowed-origins (select-keys config/env [:allowed-origins])}
+      (http/default-interceptors)
+      (update ::http/interceptors conj (bodyp/body-params))
+      (update ::http/interceptors conj intc/body-coercer)
+      (update ::http/interceptors conj intc/content-negotiator)))
+
 (defn start
   "This function bootloads the server with the appropriate service-map
   configuration"
   [& [host port]]
-  (swap! server-state
-         (constantly
-          (http/start
-           (http/create-server
-            (-> {::http/routes routes
-                 ::http/type   :jetty
-                 ::http/host   (or host "127.0.0.1")
-                 ::http/port   (or port 8890)
-                 ::http/join? false
-                 ::http/allowed-origins (select-keys config/env [:allowed-origins])}
-                (http/default-interceptors)
-                (update ::http/interceptors conj (bodyp/body-params))
-                (update ::http/interceptors conj intc/body-coercer)
-                (update ::http/interceptors conj intc/content-negotiator))))))
+  (reset! server-state
+          (http/start (http/create-server (service-map host port))))
   nil)

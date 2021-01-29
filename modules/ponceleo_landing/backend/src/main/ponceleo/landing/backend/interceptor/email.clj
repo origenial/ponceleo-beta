@@ -1,8 +1,8 @@
 (ns ponceleo.landing.backend.interceptor.email
   [:require
    [config.core :refer [env]]
-   [postal.core :as postal]
-   [ponceleo.landing.backend.status :as status]])
+   [ponceleo.landing.backend.status :as status]
+   [postal.core :as postal]])
 
 (defn send-email!
   "Send a unique email given a map of [:from :to :cc :subject :body] and an

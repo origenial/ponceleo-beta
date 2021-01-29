@@ -4,6 +4,7 @@
   (:require
    #_ [ponceleo.landing.backend.hello.handler :refer [respond-hello echo]]
    [io.pedestal.http.route :as route]
+   [ponceleo.landing.backend.contact.handler :refer [contact-intc]]
    [ponceleo.landing.backend.interceptor.email :refer [email-sender]]
    [ponceleo.landing.backend.subscribe.handler :refer [subscribe-intc]]))
 
@@ -13,4 +14,8 @@
    #{["/subscribe"
       :post
       [subscribe-intc email-sender]
-      :route-name :subscribe]}))
+      :route-name :subscribe]
+     ["/contact"
+      :post
+      [contact-intc email-sender]
+      :route-name :contact]}))
