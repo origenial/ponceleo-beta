@@ -8,6 +8,8 @@
 
  :production true
 
+ :allowed-origins ["https://www.ponceleo.com:80"]
+
  :mail-server
  {:default-sender "le.site@ponceleo.com"
   :admin-email "lyderic.dutillieux@ponceleo.com"

@@ -42,5 +42,12 @@
 
              :preview
              {:entries [ponceleo.landing.frontend.pages.preview.index]
-              :depends-on #{:main}}}}}
+              :depends-on #{:main}}}
+   :dev {:closure-defines
+         {ponceleo.landing.frontend.core/API_URL "http://127.0.0.1:8888"}}
+
+   :release {:closure-defines
+             {ponceleo.landing.frontend.core/API_URL "https://api.ponceleo.com"}}
+
+   }}
  }

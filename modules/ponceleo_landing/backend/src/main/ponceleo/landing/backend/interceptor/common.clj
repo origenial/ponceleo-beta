@@ -1,7 +1,8 @@
 (ns ponceleo.landing.backend.interceptor.common
   (:require
    [clojure.data.json :as json]
-   [io.pedestal.http.content-negotiation :as conneg]))
+   [io.pedestal.http.content-negotiation :as conneg]
+   [io.pedestal.interceptor :refer [interceptor]]))
 
 ;;;;;;;;;;;;;;
 ;; Utilities
@@ -46,11 +47,12 @@
   "Interceptor that coerce the HTTP response to the Accepted Content-Type if
   not already done yet.
   Only supports `ponceleo.landing.backend.interceptor.common/supported-content-types`"
-  {:name ::body-coercer
-   :leave
-   (fn [context]
-     (cond-> context
+  (interceptor
+   {:name ::body-coercer
+    :leave
+    (fn [context]
+      (cond-> context
                                         ;If a Content-Type is already provided, return the context as is
                                         ;Else coerce the response to the Accepted content-type
-       (some? (get-in context [:response :headers "Content-Type"]))
-       (update :response coerce-to (accepted-type context))))})
+        (some? (get-in context [:response :headers "Content-Type"]))
+        (update :response coerce-to (accepted-type context))))}))

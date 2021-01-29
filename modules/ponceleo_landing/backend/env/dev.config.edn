@@ -6,6 +6,9 @@
  ;; (config.core/reload-env) reload env variables for current REPL
 
  :dev true
+ :allowed-origins ["http://localhost:3449"
+                   "http://127.0.0.1:3449"]
+
  ;; I'm using maildev as decribed here https://www.grafikart.fr/tutoriels/maildev-tester-emails-595
  ;; In local environment
  :mail-server

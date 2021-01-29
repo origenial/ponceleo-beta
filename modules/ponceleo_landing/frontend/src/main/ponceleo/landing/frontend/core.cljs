@@ -7,6 +7,8 @@
    ["react" :as react]
    [reagent.core :as reagent]))
 
+(goog-define API_URL "undefined")
+
 ;; Lazy components definition
 (def home ""      (lazy-component ponceleo.landing.frontend.pages.home.index/home-page))
 (def about ""     (lazy-component ponceleo.landing.frontend.pages.about.index/about-page))
