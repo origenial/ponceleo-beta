@@ -22,14 +22,14 @@
   :app
   {:target :browser
    :asset-path "/js/out"
-   :output-dir "target/public/js/out"
+   :output-dir "dist/public/js/out"
    :devtools {:repl-pprint true
-              :http-root "target/public"
+              :http-root "dist/public"
               :http-port 3449}
-   :build-hooks [(ponceleo.landing.frontend.hooks/create-index-html! "target" "public")
+   :build-hooks [(ponceleo.landing.frontend.hooks/create-index-html! "dist" "public")
                  (ponceleo.landing.frontend.hooks/copy-dir!
                   ["." "src" "resources" "img"]
-                  ["." "target" "public"])]
+                  ["." "dist" "public"])]
    :module-loader true
    :modules {:main
              {:init-fn ponceleo.landing.frontend.init/init!}

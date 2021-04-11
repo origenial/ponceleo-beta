@@ -9,7 +9,7 @@ source "$MODULE_DIR/.env.local";
 # SSH_PORT, SSH_USER, SSH_TARGET, SSH_DIRECTORY
 
 # Cleaning up dev files
-rm -rf "$MODULE_DIR/target/public/js/out/cljs-runtime"
+rm -rf "$MODULE_DIR/dist/public/js/out/cljs-runtime"
 
 rsync --recursive \
       --links \
@@ -19,5 +19,5 @@ rsync --recursive \
       --rsync-path=/usr/bin/rsync \
       --delete \
       --info=progress0,stats \
-      target/public/* \
+      dist/public/* \
       ${SSH_USER}@${SSH_TARGET}:${SSH_DIRECTORY};
