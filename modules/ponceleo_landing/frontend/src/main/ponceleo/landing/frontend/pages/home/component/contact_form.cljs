@@ -109,17 +109,26 @@
         [:span.bar]]
        [:button#contact-form-submit.my-8,
         {:type :button
-         :disabled submit-disabled,
          :class ["p-2" "text-white" "w-1/2"
                  "bg-red-500" "text-center"
                  "shadow-md" "rounded-sm"]
          :on-click
          (fn [event]
-           (swap! form-state assoc :submit :loading)
-           (go (let [response (<! (api-contact @form-state))]
-                 (swap! form-state assoc :submit
-                        (if (ok? response)
-                          :success
-                          :error)))))}
+           (let [init-blank #(or % "")
+                 init-untouched #(-> %
+                                     (update :full-name init-blank)
+                                     (update :email init-blank)
+                                     (update :message init-blank)
+                                     (update :subject init-blank))]
+             (when-not submit-disabled
+               (swap! form-state assoc :submit :loading)
+               (go (let [response (<! (api-contact @form-state))]
+                     (swap! form-state assoc :submit
+                            (if (ok? response)
+                              :success
+                              :error)))))
+             (when submit-disabled
+               (swap! form-state init-untouched)))
+           )}
         submit-message]]))
   )

@@ -1,5 +1,4 @@
-{
- :deps
+{:deps
  {org.clojure/clojure {:mvn/version "1.10.1"}
   org.clojure/clojurescript {:mvn/version "1.10.773"}
   ring/ring-core {:mvn/version "1.8.1"}
@@ -24,5 +23,4 @@
   #_#_ponceleo.core/backend {:local/root "../../ponceleo_core/backend"}}
 
  :paths
- ["src/main" "src/dev" "src/test" "src/resources"]
- }
+ ["src/main" "src/dev" "src/test" "src/resources"]}

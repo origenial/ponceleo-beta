@@ -15,11 +15,10 @@
 (def preview ""   (lazy-component ponceleo.landing.frontend.pages.preview.index/preview-page))
 (def error-404 "" (lazy-component ponceleo.landing.frontend.pages.error/error-404))
 
-
 (defn page-for
   "Translate routes into page components"
   [page-name]
-  (let [route (if(string? page-name) (keyword page-name) page-name)]
+  (let [route (if (string? page-name) (keyword page-name) page-name)]
     [:> react/Suspense {:fallback (reagent/as-element [:div "Chargement en cours ..."])}
      (case route
        :index [:> home]

@@ -26,7 +26,7 @@
       [:td "OVH - +33972101007 - www.ovh.com/fr/"]]
      [:tr
       [:th {:scope "row"} "Cookies"]
-      [:td "Aucun"]]
-     ]]
+      [:td "Aucun"]]]]
+
    [:a {:href (path-for :index)} "Retourner à l'accueil principal"]]
   )

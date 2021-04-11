@@ -64,7 +64,7 @@
           {:name :email,
            :type :email,
            :required true,
-           :class (with-validity not-empty
+           :class (with-validity some?
                     ::subscribe-spec/email email
                     "p-2" "w-full")
            :value email
@@ -73,17 +73,20 @@
          [:span.bar]]
         [:button#subscribe-form-submit.my-4
          {:type :button
-          :disabled submit-disabled
           :title (when-not form-valid "Veuillez fournir votre adresse mail")
           :class ["p-2" "w-full" "bg-red-500" "text-center" "shadow-sm" "rounded-sm"]
           :on-click
           (fn [event]
-            (swap! form-state assoc :submit :loading)
-            (go (let [response (<! (api-subscribe @form-state))]
-                  (swap! form-state assoc :submit
-                         (if (ok? response)
-                           :success
-                           :error)))))}
+            (let [init-blank #(or % "")]
+              (when-not submit-disabled
+                (swap! form-state assoc :submit :loading)
+                (go (let [response (<! (api-subscribe @form-state))]
+                      (swap! form-state assoc :submit
+                             (if (ok? response)
+                               :success
+                               :error)))))
+              (when submit-disabled
+                (swap! form-state update :email init-blank))))}
          submit-message]]
        [:div {:class ["w-full" "text-right"]}
         [:span.text-sm "* : Garantie sans spam"]]])))

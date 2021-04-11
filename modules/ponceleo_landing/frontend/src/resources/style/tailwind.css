@@ -26,15 +26,15 @@ button.btn-primary {
   border-radius: 5px;
 }
 
-button:hover:enabled:not(:active), button:focus:enabled:not(:active)
+button:hover:enabled:not(:active)
 {
   transform: translateY(-0.2rem);
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
 }
 button:disabled{
-  cursor: not-allowed;
-  opacity:0.90;
+  cursor: default;
 }
+
 button:focus{
-  outline: black solid 2px;
+  outline: black solid 1px;
 }
